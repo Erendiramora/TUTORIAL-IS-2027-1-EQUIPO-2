@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Ejemplos</title>
+ <link rel="stylesheet" href="page.css">
+ <script src="media/js/jq.js"></script>
+ <script src="media/js/solo.js"></script>
+  <style>
+ :root {
+ --unam-blue: #2435a4;
+ --unam-gold: #f6aa1c;
+ --dark-bg: #0f0f14;
+ --card-border: rgba(255, 255, 255, 0.1);
+ }
+
+ .wrap {
+ max-width: 1100px;
+ margin: 0 auto;
+ padding: 40px 20px;
+ }
+
+ /* ── Navegación entre ejemplos ── */
+ .ejemplo-nav {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ gap: 15px;
+ margin-bottom: 18px;
+ background: rgba(36, 53, 164, 0.12);
+ padding: 14px 20px;
+ border-radius: 12px;
+ border: 1px solid var(--unam-blue);
+ }
+ .ejemplo-nav #contador {
+ font-weight: bold;
+ color: var(--unam-gold);
+ font-size: 1.05rem;
+ }
+ .nav-btn {
+ background: var(--unam-blue);
+ color: #fff;
+ border: none;
+ padding: 10px 20px;
+ border-radius: 8px;
+ font-size: 1rem;
+ font-weight: bold;
+ cursor: pointer;
+ transition: background .2s, transform .1s;
+ font-family: inherit;
+ }
+ .nav-btn:hover:not(:disabled) { background: #3547c4; transform: scale(1.04); }
+ .nav-btn:disabled { opacity: 0.35; cursor: default; }
+
+ /* ── Puntos de progreso ── */
+ #dots-wrap {
+ display: flex; gap: 8px; flex-wrap: wrap;
+ justify-content: center; margin-bottom: 28px;
+ }
+ .ej-dot {
+ width: 16px; height: 16px; border-radius: 50%;
+ border: 1px solid var(--unam-blue);
+ background: transparent; cursor: pointer;
+ transition: background .2s, transform .15s;
+ font-size: 0;
+ }
+ .ej-dot:hover { transform: scale(1.2); }
+ .ej-dot.done { background: rgba(114,176,29,0.55); border-color: #72b01d; }
+ .ej-dot.active { background: var(--unam-gold); border-color: var(--unam-gold); }
+
+ /* ── Tarjeta del caso ── */
+ .case-card {
+ background: var(--dark-bg);
+ border-radius: 15px;
+ border: 1px solid var(--card-border);
+ overflow: hidden;
+ animation: fadeIn 0.4s ease;
+ }
+ .case-header {
+ padding: 20px 30px;
+ background: var(--unam-blue);
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ gap: 12px;
+ }
+ .case-header h3 {
+ margin: 0; color: #fff; font-size: 1.5rem;
+ border: none; padding: 0;
+ }
+ .case-id {
+ background: var(--unam-gold);
+ color: #000; padding: 5px 15px;
+ border-radius: 20px; font-weight: bold; font-size: 0.9rem;
+ white-space: nowrap;
+ }
+ .case-body { padding: 30px; }
+ .case-fuente { color: #aaa; font-size: .92rem; margin: -6px 0 18px; text-align: left; }
+
+ /* ── Pasos ── */
+ .step {
+ display: flex; gap: 18px; align-items: flex-start;
+ margin-bottom: 18px; padding: 18px 20px;
+ background: rgba(255,255,255,0.03);
+ border-radius: 10px;
+ border-left: 4px solid var(--unam-gold);
+ animation: fadeIn 0.5s ease;
+ }
+ .step.step-problema { border-left-color: var(--unam-blue); background: rgba(36,53,164,0.10); }
+ .step-num {
+ flex-shrink: 0;
+ width: 38px; height: 38px;
+ border-radius: 50%;
+ background: var(--unam-gold);
+ color: #000; font-weight: 900; font-size: 1.2rem;
+ display: flex; align-items: center; justify-content: center;
+ }
+ .step.step-problema .step-num { background: #fff; }
+ .step-body { flex: 1; min-width: 0; }
+ .step-body h4 {
+ color: var(--unam-gold);
+ font-size: 1rem;
+ margin: 6px 0 12px;
+ border-bottom: 1px solid rgba(246, 170, 28, 0.3);
+ padding-bottom: 6px;
+ }
+ .step.step-problema .step-body h4 { color: #fff; border-color: rgba(255,255,255,0.25); }
+ .step-body p { line-height: 1.7; color: #ddd; margin: 0 0 8px; }
+ .step-body p:last-child { margin-bottom: 0; }
+ .escenario { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 18px; align-items: center; margin: 6px 0 10px; }
+ .escenario svg { width: 100%; height: auto; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; }
+ .step-body figure.fig-libro { width: 100%; margin: 14px 0 4px; }
+
+ /* ── Botón paso a paso ── */
+ .paso-controls { text-align: center; margin-top: 22px; }
+ .btn-paso {
+ background: var(--unam-gold);
+ color: #000; border: none;
+ padding: 13px 34px; border-radius: 8px;
+ font-size: 1.1rem; font-weight: bold; cursor: pointer;
+ transition: background .2s, transform .1s; font-family: inherit;
+ margin: 4px;
+ }
+ .btn-paso:hover { background: #ffd700; transform: scale(1.04); }
+ .btn-paso.sec { background: transparent; color: var(--unam-gold); border: 1px solid var(--unam-gold); }
+ .solucion-completa {
+ display: inline-block; margin-top: 4px;
+ color: #72b01d; font-weight: bold; font-size: 1.05rem;
+ }
+
+ @keyframes fadeIn {
+ from { opacity: 0; transform: translateY(15px); }
+ to { opacity: 1; transform: translateY(0); }
+ }
+ @media (max-width: 760px) { .escenario { grid-template-columns: 1fr; } .case-body { padding: 18px; } }
+ </style>
+</head>
+<body>
+
+<div class="wrap">
+ <header class="page-header" style="--hero:url('media/tema/tema5.jpg')">
+ <span class="page-num">Equipo 2 · Ingeniería de Software</span>
+ <h1 class="page-title">Ejemplos de estudio</h1>
+ <p class="page-subtitle">5 ejemplos resueltos paso a paso</p>
+ </header>
+ <p style="text-align:center;color:#aaa;">
+ Cada caso se resuelve <strong style="color:var(--unam-gold)">paso a paso</strong>: primero se plantea el problema y después se revela cada paso del razonamiento hasta llegar al resultado.
+ </p>
+
+ <div class="ejemplo-nav">
+ <button class="nav-btn" id="btn-prev" onclick="cambiarEjemplo(-1)">◀ Anterior</button>
+ <span id="contador">Ejemplo 1 de 1</span>
+ <button class="nav-btn" id="btn-next" onclick="cambiarEjemplo(1)">Siguiente ▶</button>
+ </div>
+
+ <div id="dots-wrap"></div>
+
+ <div id="ejemplo-container"></div>
+
+ <section class="referencias-pie">
+ <h3>Referencias</h3>
+ <ol>
+ <li id="ref1" value="1">Sommerville, I. (2019). <em>Ingeniería de software</em> (10.ª ed.). Pearson.</li>
+ <li id="ref2" value="2">Sommerville, I. (1992). <em>Software engineering</em> (4.ª ed.). Addison-Wesley.</li>
+ <li id="ref3" value="3">Sommerville, I. (2005). <em>Ingeniería del software</em> (7.ª ed.). Pearson Educación.</li>
+ <li id="ref4" value="4">Pressman, R. S. y Maxim, B. R. (2020). <em>Ingeniería de software: Un enfoque práctico</em> (9.ª ed.). McGraw-Hill Education.</li>
+ <li id="ref5" value="5">Wiegers, K. E. y Beatty, J. (2013). <em>Software requirements</em> (3.ª ed.). Microsoft Press.</li>
+ <li id="ref7" value="7">Celi Párraga, R. J. et al. (2023). <em>Ingeniería del Software I</em>. Editorial Grupo AEA.</li>
+ </ol>
+ </section>
+</div>
+
+<script>
+const EJEMPLOS = [
+ {
+  "titulo": "Clasificar requerimientos no funcionales",
+  "fuente": "Planteamiento P4 del tutorial; clasificación de Sommerville (2005, pp. 112-113, Fig. 6.3).",
+  "enunciado": "Un equipo recibe tres requerimientos: <strong>(a)</strong> «El sistema debe programarse en Java, por política de la empresa»; <strong>(b)</strong> «El sistema debe cumplir la ley de protección de datos personales»; <strong>(c)</strong> «El sistema debe responder en menos de 2 segundos». ¿Cómo se clasifica cada uno?",
+  "pasos": [
+   {
+    "titulo": "Recordar los tres grupos",
+    "html": "<p>Los requerimientos no funcionales se agrupan en <strong>del producto</strong> (comportamiento del sistema), <strong>organizacionales</strong> (políticas y procesos de la organización) y <strong>externos</strong> (factores ajenos al sistema, como leyes).</p><figure class='fig-libro'><img src='imagenes/figura_6_3.png' alt='Árbol de tipos de requerimientos no funcionales'><figcaption>Figura 6.3. Tipos de requerimientos no funcionales. Tomado de <em>Ingeniería del software</em> (7.ª ed., pp. 112-113), por I. Sommerville, 2005, Pearson Educación.</figcaption></figure>"
+   },
+   {
+    "titulo": "Caso (a): Java por política de la empresa",
+    "html": "<p>La decisión viene de la organización que desarrolla, no de la ley ni del comportamiento del producto. Es un requerimiento de <strong>implementación</strong> → <strong>organizacional</strong>.</p>"
+   },
+   {
+    "titulo": "Caso (b): ley de protección de datos",
+    "html": "<p>El origen es una norma ajena al sistema y a la empresa. Es un requerimiento <strong>legislativo</strong> (de privacidad) → <strong>externo</strong>.</p>"
+   },
+   {
+    "titulo": "Caso (c): responder en menos de 2 segundos",
+    "html": "<p>Describe cómo se comporta el producto en operación y además es medible. Es un requerimiento de <strong>rendimiento</strong>, dentro de eficiencia → <strong>del producto</strong>.</p>"
+   }
+  ],
+  "resultado": "(a) Organizacional, (b) Externo, (c) Del producto. Coincide con la respuesta de la pregunta P4 y con la opción C del cuestionario."
+ },
+ {
+  "titulo": "De un requerimiento ambiguo a uno verificable",
+  "fuente": "Elaboración propia con base en Sommerville (2005, pp. 109-111) y en las reglas de Heininger (Sommerville, 1992, pp. 51-53).",
+  "enunciado": "Un cliente de una biblioteca escolar pide: «El sistema debe ser <em>rápido</em> y <em>fácil de usar</em>». Reescribe la petición para que sea un buen requerimiento.",
+  "pasos": [
+   {
+    "titulo": "Detectar los defectos",
+    "html": "<p>Los términos «rápido» y «fácil de usar» son <strong>subjetivos</strong>: cada persona los interpreta distinto (falta de claridad y ambigüedad). Además, <strong>dos ideas distintas</strong> están mezcladas en una sola frase (conjunción de requerimientos), lo que impide evaluar cada una por separado.</p>"
+   },
+   {
+    "titulo": "Separar en requerimientos individuales",
+    "html": "<p>Se obtienen dos: uno de <strong>rendimiento</strong> y otro de <strong>usabilidad</strong>. Cada uno recibirá su propio identificador y prioridad.</p>"
+   },
+   {
+    "titulo": "Cuantificar y definir el criterio de aceptación",
+    "html": "<p><strong>RNF-01 (rendimiento):</strong> la búsqueda de un libro debe mostrar resultados en menos de 2 segundos con hasta 50 usuarios conectados.<br><strong>RNF-02 (usabilidad):</strong> un bibliotecario nuevo debe poder registrar un préstamo sin ayuda después de 30 minutos de capacitación.</p>"
+   },
+   {
+    "titulo": "Agregar la justificación",
+    "html": "<p>Todo requerimiento completo indica el comportamiento esperado, su justificación y su criterio de aceptación. <em>Justificación RNF-01:</em> la cola de préstamos en hora pico no debe crecer. <em>Justificación RNF-02:</em> el personal rota cada semestre.</p>"
+   },
+   {
+    "titulo": "Comprobar las cualidades",
+    "html": "<p>¿No ambiguo? Sí. ¿Verificable? Sí: se mide con una prueba de carga y una prueba con usuarios. ¿Completo y consistente? Sí. ¿Priorizado? Se asigna <em>esencial</em> a RNF-01 y <em>condicional</em> a RNF-02.</p>"
+   }
+  ],
+  "resultado": "Dos requerimientos no funcionales claros, medibles y verificables, en lugar de una frase subjetiva."
+ },
+ {
+  "titulo": "Un requerimiento de seguridad que genera requerimientos funcionales",
+  "fuente": "Planteamiento P1 del tutorial; Sommerville (2005, pp. 109 y 111) y Sommerville (1992, pp. 56-57). Ejemplo de aplicación elaborado por el equipo.",
+  "enunciado": "En un sistema escolar, la dirección solicita: «La información de las calificaciones debe estar protegida». ¿Es un requerimiento funcional o no funcional? ¿Qué requerimientos derivan de él?",
+  "pasos": [
+   {
+    "titulo": "Clasificar el requerimiento original",
+    "html": "<p>Parece <strong>no funcional</strong>: restringe una propiedad del sistema completo (seguridad) y no describe un servicio concreto.</p>"
+   },
+   {
+    "titulo": "Detallarlo",
+    "html": "<p>Al preguntar «¿protegida de quién y cómo?» aparecen funciones concretas que el sistema debe ofrecer.</p>"
+   },
+   {
+    "titulo": "Derivar requerimientos funcionales",
+    "html": "<p><strong>RF-01:</strong> el sistema debe permitir que cada usuario inicie sesión con usuario y contraseña (autenticación).<br><strong>RF-02:</strong> el sistema debe permitir que un alumno consulte únicamente sus propias calificaciones.<br><strong>RF-03:</strong> el sistema debe registrar quién modifica una calificación y cuándo.</p>"
+   },
+   {
+    "titulo": "Conservar el requerimiento no funcional",
+    "html": "<p>Queda además una restricción medible y externa: <strong>RNF-01:</strong> el sistema debe cifrar las calificaciones almacenadas y transmitidas.</p>"
+   }
+  ],
+  "resultado": "Un requerimiento de seguridad (aparentemente no funcional) genera requerimientos claramente funcionales, como autenticar usuarios. Por eso la frontera entre ambos tipos no es tan nítida."
+ },
+ {
+  "titulo": "Las cinco etapas del proceso en un caso",
+  "fuente": "Elaboración propia con base en Sommerville (2019, secciones 4.2 a 4.4), Pressman y Maxim (2020, secciones 7.3 y 7.5) y Wiegers y Beatty (2013, cap. 3 y 9).",
+  "enunciado": "Una facultad quiere un sistema para inscribirse a prácticas de laboratorio. Recorre el proceso de ingeniería de requerimientos de principio a fin.",
+  "pasos": [
+   {
+    "titulo": "1. Elicitación",
+    "html": "<p>Se entrevista a alumnos y profesores, se observa cómo se inscriben hoy con listas en papel, se revisan los reglamentos de laboratorio y se aplica un cuestionario a 200 alumnos. Combinar técnicas reduce el riesgo de omitir necesidades.</p>"
+   },
+   {
+    "titulo": "2. Análisis y negociación",
+    "html": "<p>Los alumnos quieren inscribirse hasta el último día; los laboratorios necesitan cerrar cupos tres días antes. Se evalúa la viabilidad y se negocia: cierre a las 48 horas. Se clasifican las necesidades en esenciales, deseables y opcionales.</p>"
+   },
+   {
+    "titulo": "3. Especificación",
+    "html": "<p>Se redacta el documento SRS: cada requerimiento con identificador, propósito, justificación y criterio de aceptación; se agregan casos de uso y una matriz de trazabilidad.</p>"
+   },
+   {
+    "titulo": "4. Validación",
+    "html": "<p>Se hace una <strong>revisión formal</strong> con la coordinación y un prototipo de las pantallas con alumnos. Se revisan validez de las necesidades, coherencia, exhaustividad y realismo. Se detecta que faltaba definir qué pasa si un alumno se da de baja.</p>"
+   },
+   {
+    "titulo": "5. Gestión de cambios",
+    "html": "<p>Meses después se pide permitir permutas de grupo. La solicitud se identifica, se evalúa su impacto, se aprueba y se documenta en la especificación para que el código y el documento sigan sincronizados.</p>"
+   }
+  ],
+  "resultado": "El proceso es un ciclo iterativo: los hallazgos de validación o los cambios pueden regresar a la elicitación o al análisis."
+ },
+ {
+  "titulo": "Elegir la arquitectura según el requerimiento crítico",
+  "fuente": "Planteamiento P5, P6 y P7 del tutorial; Celi Párraga et al. (2023, pp. 41, 68 y 69).",
+  "enunciado": "Una aplicación de banca móvil tiene tres requerimientos críticos: <strong>seguridad</strong>, <strong>rendimiento</strong> y <strong>disponibilidad</strong>. ¿Qué decisión de arquitectura sugiere cada uno?",
+  "pasos": [
+   {
+    "titulo": "Seguridad → estructura en capas",
+    "html": "<p>Se organiza el sistema en capas y se colocan los <strong>activos más críticos</strong> (cuentas, claves) en las capas más internas, aplicando un alto nivel de validación de seguridad en ellas.</p>"
+   },
+   {
+    "titulo": "Rendimiento → componentes grandes",
+    "html": "<p>Las operaciones críticas se concentran en pocos componentes desplegados en la misma computadora. Se prefieren <strong>componentes relativamente grandes</strong> porque así se reducen las comunicaciones entre componentes.</p>"
+   },
+   {
+    "titulo": "Disponibilidad → componentes redundantes",
+    "html": "<p>Se incluyen <strong>componentes redundantes</strong> para poder sustituir y actualizar piezas sin detener el sistema.</p>"
+   },
+   {
+    "titulo": "Reconocer el conflicto",
+    "html": "<p>Estas decisiones pueden competir entre sí (más capas implican más comunicación). Por eso estos requerimientos deben priorizarse y negociarse desde la etapa de análisis.</p>"
+   }
+  ],
+  "resultado": "Seguridad: capas con los activos críticos adentro. Rendimiento: componentes grandes. Disponibilidad: componentes redundantes."
+ }
+];
+
+let idx = 0; // ejemplo actual
+let revelados = 0; // pasos mostrados
+
+function pad(n) { return n < 10 ? "0" + n : "" + n; }
+
+function pasosDe(e) {
+ const lista = e.pasos.map(function (p, i) { return { n: i + 2, titulo: p.titulo, html: p.html }; });
+ lista.push({ n: e.pasos.length + 2, titulo: "Resultado", html: "<p>" + e.resultado + "</p>" });
+ return lista;
+}
+
+function render() {
+ const e = EJEMPLOS[idx];
+ const pasos = pasosDe(e);
+
+ let html = '<div class="case-card">';
+ html += '<div class="case-header"><h3>' + (idx + 1) + '. ' + e.titulo + '</h3><span class="case-id">Caso #' + pad(idx + 1) + '</span></div>';
+ html += '<div class="case-body">';
+ html += '<p class="case-fuente">Fuente: ' + e.fuente + '</p>';
+ html += '<div class="step step-problema"><span class="step-num">1</span><div class="step-body"><h4>El problema</h4><p>' + e.enunciado + '</p></div></div>';
+
+ for (let i = 0; i < revelados; i++) {
+ const p = pasos[i];
+ html += '<div class="step"><span class="step-num">' + p.n + '</span><div class="step-body"><h4>' + p.titulo + '</h4>' + p.html + '</div></div>';
+ }
+
+ html += '<div class="paso-controls">';
+ if (revelados < pasos.length) {
+ const label = revelados === 0 ? "▸ Resolver paso a paso" : "Siguiente paso ▸";
+ html += '<button class="btn-paso" onclick="siguientePaso()">' + label + '</button>';
+ html += '<button class="btn-paso sec" onclick="mostrarTodo()">Mostrar todo</button>';
+ } else {
+ html += '<span class="solucion-completa">✓ Solución completa</span>';
+ }
+ html += '</div></div></div>';
+
+ document.getElementById("ejemplo-container").innerHTML = html;
+ document.getElementById("contador").textContent = "Ejemplo " + (idx + 1) + " de " + EJEMPLOS.length;
+ document.getElementById("btn-prev").disabled = (idx === 0);
+ document.getElementById("btn-next").disabled = (idx === EJEMPLOS.length - 1);
+ renderDots();
+}
+
+function renderDots() {
+ let h = "";
+ for (let i = 0; i < EJEMPLOS.length; i++) {
+ let cls = "ej-dot";
+ if (i === idx) cls += " active";
+ else if (i < idx) cls += " done";
+ h += '<span class="' + cls + '" title="Ejemplo ' + (i + 1) + ': ' + EJEMPLOS[i].titulo + '" onclick="irAEjemplo(' + i + ')">.</span>';
+ }
+ document.getElementById("dots-wrap").innerHTML = h;
+}
+
+function siguientePaso() {
+ const total = pasosDe(EJEMPLOS[idx]).length;
+ if (revelados < total) { revelados++; render(); }
+ const pasosEl = document.querySelectorAll('.step');
+ if (pasosEl.length) pasosEl[pasosEl.length - 1].scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+function mostrarTodo() { revelados = pasosDe(EJEMPLOS[idx]).length; render(); }
+
+function cambiarEjemplo(dir) {
+ const nuevo = idx + dir;
+ if (nuevo < 0 || nuevo >= EJEMPLOS.length) return;
+ idx = nuevo; revelados = 0; render();
+ window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function irAEjemplo(i) {
+ if (i === idx) return;
+ idx = i; revelados = 0; render();
+ window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+$(document).ready(render);
+</script>
+</body>
+</html>

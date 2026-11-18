@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Objetivo</title>
+ <link rel="stylesheet" href="page.css">
+ <script src="media/js/jq.js"></script>
+ <script src="media/js/solo.js"></script>
+</head>
+<body>
+<div class="wrap">
+
+ <header class="page-header" style="--hero:url('media/tema/tema3.jpg')">
+ <span class="page-num">Equipo 2 · Ingeniería de Software</span>
+ <h1 class="page-title">Objetivo</h1>
+ <p class="page-subtitle">Fundamentos para los requerimientos del software. Requerimientos Básicos del Sistema</p>
+ </header>
+
+ <h2>Objetivo general</h2>
+ <p>
+ Desarrollar la explicación de los <strong style="color:#D90;">conceptos básicos de los requerimientos del software</strong>,
+ de modo que la persona que estudie este tutorial pueda analizar, clasificar e identificar correctamente cada requerimiento,
+ comprendiendo su funcionalidad y el impacto que tiene dentro de un sistema.
+ </p>
+
+ <h2>Objetivos específicos</h2>
+ <div class="card-grid">
+ <div class="card"><span class="card-icon">📖</span><h4>1. Explicar los conceptos básicos</h4>
+ <p>Definir qué es un requerimiento, por qué la ingeniería de requerimientos es una fase crítica y qué niveles de audiencia existen.</p></div>
+ <div class="card"><span class="card-icon">🔎</span><h4>2. Analizar y clasificar</h4>
+ <p>Clasificar cada requerimiento comprendiendo su funcionalidad y el impacto que tiene en el sistema.</p></div>
+ <div class="card"><span class="card-icon">⚖️</span><h4>3. Distinguir los tipos</h4>
+ <p>Identificar la diferencia entre requerimientos funcionales, no funcionales y de dominio, y entre los tipos de requerimientos no funcionales.</p></div>
+ <div class="card"><span class="card-icon">✍️</span><h4>4. Aplicar técnicas de redacción</h4>
+ <p>Aplicar las técnicas y los conocimientos necesarios para redactar requerimientos según su funcionalidad.</p></div>
+ </div>
+
+</div>
+<script>
+$(document).ready(function(){
+ $('.accordion-btn').on('click',function(){
+ $(this).toggleClass('active').next('.accordion-content').slideToggle(350);
+ });
+});
+</script>
+</body>
+</html>

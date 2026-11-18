@@ -1,0 +1,446 @@
+/* ============================================================
+   page.css — Estilo compartido para páginas internas
+   Equipo 2 · Ingeniería de Software · UNAM FI
+   (Basado en el page.css del tutorial anterior; se agregan al final
+   los estilos para citas, figuras de los libros y matrices.)
+   ============================================================ */
+
+:root {
+  --bg: #0b0b0b;
+  --gold: #D90;
+  --gold2: #ffd700;
+  --blue: #2435a4;
+  --accent: #f6aa1c;
+  --muted: #cfcfcf;
+  --card: #121218;
+  --glass: rgba(255,255,255,0.04);
+  --radius: 10px;
+}
+
+html, body {
+  min-height: 100%;
+  margin: 0;
+  font-family: 'Trebuchet MS', 'Segoe UI', sans-serif;
+  background: transparent;           /* dentro del iframe se ve el tema elegido */
+  color: var(--muted);
+  overflow-x: hidden;
+}
+/* Si una página se abre sola (fuera del índice) se usa un fondo propio */
+html.solo { background: #0b0b0b url("media/tema/tema1.jpg") no-repeat center center fixed; background-size: cover; }
+html.solo body::before { content: ""; position: fixed; inset: 0; background: rgba(0,0,0,.72); z-index: -1; }
+
+.wrap {
+  max-width: 980px;
+  margin: 22px auto 40px;
+  padding: 28px 30px 50px;
+  background: rgba(8,8,14,0.74);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0,0,0,.45);
+}
+
+/* ─── Cabecera de sección (banner con foto de fondo + overlay oscuro) ─── */
+header.page-header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 170px;
+  margin: -8px -10px 30px;
+  padding: 34px 20px 26px;
+  border-radius: 14px;
+  border-bottom: 2px solid rgba(221,153,0,0.55);
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0.50) 0%, rgba(0,0,0,0.80) 100%),
+    var(--hero, none) center / cover no-repeat,
+    #101018;
+  overflow: hidden;
+}
+.page-num {
+  font-size: 1rem;
+  color: var(--accent);
+  letter-spacing: .5px;
+}
+.page-title {
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: var(--gold);
+  text-shadow: 0 2px 12px rgba(0,0,0,0.9);
+  margin: 0;
+  text-align: center;
+}
+.page-subtitle {
+  font-size: 1rem;
+  color: #aaa;
+  margin: 0;
+  text-align: center;
+}
+
+/* ─── Tipografía general ─── */
+h2 {
+  color: #fff;
+  font-size: 1.5rem;
+  margin: 28px 0 10px;
+  padding-left: 10px;
+  border-left: 4px solid var(--gold);
+}
+h3 {
+  color: var(--accent);
+  font-size: 1.15rem;
+  margin: 20px 0 8px;
+}
+p {
+  color: #e8e8e8;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin: 0 0 14px;
+  text-align: justify;
+}
+ul, ol {
+  padding-left: 22px;
+  margin: 10px 0 16px;
+}
+ul li, ol li {
+  color: #e0e0e0;
+  font-size: 1.02rem;
+  line-height: 1.65;
+  margin-bottom: 7px;
+}
+code { font-family: Consolas, 'Courier New', monospace; color: var(--gold2); }
+
+/* ─── Cita / quote ─── */
+blockquote {
+  border-left: 4px solid var(--gold);
+  margin: 18px 0;
+  padding: 12px 20px;
+  background: rgba(221,153,0,0.06);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-style: italic;
+  color: #ddd;
+}
+blockquote cite {
+  display: block;
+  margin-top: 8px;
+  font-size: 0.88rem;
+  color: var(--accent);
+  font-style: normal;
+}
+
+/* ─── Tabla ─── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0 24px;
+  background: var(--glass);
+  border-radius: var(--radius);
+  overflow: hidden;
+  font-size: 1rem;
+}
+thead tr { background: rgba(221,153,0,0.12); }
+th {
+  color: var(--gold2);
+  font-weight: 700;
+  padding: 11px 14px;
+  text-align: left;
+  border-bottom: 1px solid rgba(221,153,0,0.2);
+}
+td {
+  color: #e0e0e0;
+  padding: 10px 14px;
+  border-bottom: 1px dotted rgba(255,255,255,0.07);
+  vertical-align: top;
+}
+
+/* ─── Cards grid ─── */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+  margin: 20px 0;
+}
+.card {
+  background: var(--card);
+  border: 1px solid rgba(221,153,0,0.18);
+  border-radius: var(--radius);
+  padding: 20px;
+  transition: transform .25s, box-shadow .25s;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(221,153,0,0.15);
+}
+.card-icon {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  display: block;
+}
+.card h4 {
+  color: var(--gold);
+  font-size: 1.05rem;
+  margin: 0 0 8px;
+}
+.card p { font-size: .97rem; margin: 0; }
+
+/* ─── Acordeón ─── */
+.accordion-btn {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 16px;
+  margin: 5px 0;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(90deg, var(--blue), rgba(36,53,164,0.6));
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background .3s, box-shadow .3s;
+  box-shadow: 0 3px 10px rgba(36,53,164,0.35);
+  font-family: inherit;
+  text-align: left;
+}
+.accordion-btn:hover { background: linear-gradient(90deg,#1a2a8a,#3040c0); }
+.accordion-btn::after { content: '▼'; font-size: .8em; transition: transform .3s; margin-left: 10px; }
+.accordion-btn.active::after { transform: rotate(180deg); }
+.accordion-content {
+  background: var(--card);
+  border: 1px solid rgba(36,53,164,0.2);
+  border-radius: 8px;
+  padding: 16px 18px;
+  margin-bottom: 8px;
+  display: none;
+  color: #ddd;
+  font-size: .97rem;
+  line-height: 1.65;
+}
+
+/* ─── Figura / imagen ─── */
+figure {
+  margin: 20px auto;
+  width: 90%;
+  text-align: center;
+}
+figure img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  display: block;
+}
+figcaption {
+  margin-top: 7px;
+  font-size: .88rem;
+  color: #999;
+  font-style: italic;
+}
+
+/* ─── Badge / tag ─── */
+.badge {
+  display: inline-block;
+  background: rgba(221,153,0,0.15);
+  border: 1px solid rgba(221,153,0,0.4);
+  color: var(--gold);
+  font-size: .82rem;
+  padding: 2px 10px;
+  border-radius: 20px;
+  margin: 2px 3px;
+}
+
+/* ─── Nota al pie ─── */
+.fuente {
+  font-size: .82rem;
+  color: #888;
+  font-style: italic;
+  margin-top: -8px;
+  margin-bottom: 16px;
+}
+
+/* ============================================================
+   Estilos adicionales del tutorial
+   ============================================================ */
+
+/* Superíndices de cita (al pasar el cursor se ve la página) */
+sup.cita-ref { font-size: 0.75em; vertical-align: super; line-height: 0; margin-left: 1px; }
+sup.cita-ref a { text-decoration: none; color: #D90; font-weight: bold; }
+sup.cita-ref a:hover { text-decoration: underline; }
+
+/* Lista de referencias al pie de cada página */
+.referencias-pie { margin-top: 2.5em; padding-top: 1em; border-top: 1px solid #555; font-size: 0.9em; }
+.referencias-pie h3 { margin-top: 0; }
+.referencias-pie ol { padding-left: 1.5em; }
+.referencias-pie li { margin-bottom: 0.5em; line-height: 1.5; font-size: .95rem; }
+.referencias-pie li:target { background-color: rgba(221,153,0,0.18); padding: 4px 6px; border-radius: 3px; }
+
+/* Figuras tomadas de los libros (fondo blanco, como en la página impresa) */
+figure.fig-libro img {
+  width: auto;
+  max-width: 100%;
+  max-height: 380px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 14px;
+  box-sizing: border-box;
+}
+figure.fig-libro.ancha img { max-height: none; width: 100%; }
+
+/* Separador de temas dentro de una página */
+.seccion-tema { margin-top: 3.5em; padding-top: 1.5em; border-top: 2px solid var(--gold); }
+
+/* Recuadro de definición */
+.definicion {
+  background: rgba(36,53,164,0.14);
+  border: 1px solid rgba(36,53,164,0.5);
+  border-left: 4px solid var(--blue);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 14px 18px;
+  margin: 16px 0;
+}
+.definicion .def-tit { display: block; color: #8bbfff; font-weight: 700; margin-bottom: 6px; }
+.definicion p:last-child, .definicion ol:last-child, .definicion ul:last-child { margin-bottom: 0; }
+
+/* Fórmula destacada */
+.formula {
+  display: block;
+  text-align: center;
+  font-family: Consolas, 'Courier New', monospace;
+  font-size: 1.12rem;
+  color: #fff;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(221,153,0,0.3);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin: 16px 0;
+  overflow-x: auto;
+}
+.formula .op { color: var(--accent); font-weight: bold; }
+.formula small { display: block; font-family: 'Trebuchet MS', sans-serif; font-size: .85rem; color: #aaa; margin-top: 6px; font-style: italic; }
+
+/* Pasos numerados (como en el tutorial anterior) */
+.proceso-paso { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 16px; padding: 14px; background: rgba(255,255,255,0.03); border-radius: 8px; border-left: 4px solid var(--gold); }
+.paso-num { font-size: 1.6rem; font-weight: 900; color: var(--gold); min-width: 36px; line-height: 1; }
+.paso-body h4 { color: #fff; margin: 0 0 5px; font-size: 1rem; }
+.paso-body p { margin: 0; font-size: .97rem; color: #ccc; }
+
+/* Código */
+pre.codigo {
+  background: #0f0f14;
+  border: 1px solid rgba(221,153,0,0.25);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  color: #e8e8e8;
+  font-family: Consolas, 'Courier New', monospace;
+  font-size: .95rem;
+  line-height: 1.6;
+  overflow-x: auto;
+}
+pre.codigo .kw { color: #89b4fa; }
+pre.codigo .co { color: #888; font-style: italic; }
+pre.codigo .k { color: var(--accent); font-weight: bold; }
+
+/* Matrices del algoritmo */
+.wmat-wrap { overflow-x: auto; margin: 10px 0; }
+table.wmat { width: auto; border-collapse: separate; border-spacing: 3px; margin: 6px auto; background: transparent; font-family: Consolas, 'Courier New', monospace; }
+table.wmat th { background: transparent; color: #aaa; border: 0; padding: 2px 6px; text-align: center; font-weight: normal; font-size: .9rem; }
+table.wmat th.piv { color: var(--accent); font-weight: bold; }
+table.wmat td { width: 34px; height: 32px; padding: 0 4px; text-align: center; vertical-align: middle; border: 0; border-radius: 6px; background: rgba(255,255,255,0.06); color: #888; font-weight: bold; }
+table.wmat td.uno { background: var(--blue); color: #fff; }
+table.wmat td.nuevo { background: var(--accent); color: #000; box-shadow: 0 0 0 2px rgba(246,170,28,0.4); }
+table.wmat td.piv { outline: 2px solid #fff; outline-offset: -2px; }
+table.wmat.chica td { width: 24px; height: 22px; font-size: .8rem; border-radius: 4px; }
+table.wmat.chica th { font-size: .75rem; }
+.matrices-fila { display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; align-items: flex-start; margin: 14px 0; }
+.matrices-fila figure { width: auto; margin: 0; }
+.matrices-fila figcaption { font-style: normal; color: #aaa; margin: 0 0 4px; font-family: Consolas, monospace; font-size: .82rem; }
+
+/* Gráficas dibujadas con SVG */
+.warista { fill: none; stroke: #89b4fa; stroke-width: 2; }
+.warista.agregada { stroke: #f6aa1c; stroke-dasharray: 6 5; }
+.warista.reciente { stroke: #f6aa1c; stroke-width: 3.2; }
+.wnodo circle { fill: #0f0f14; stroke: #fff; stroke-width: 2; }
+.wnodo.piv circle { fill: #f6aa1c; stroke: #f6aa1c; }
+.wnodo text { fill: #fff; font: bold 15px Consolas, 'Courier New', monospace; }
+.wnodo.piv text { fill: #000; }
+.wpares { font-family: Consolas, 'Courier New', monospace; color: var(--gold2); }
+.leyenda { display: flex; flex-wrap: wrap; gap: 6px 18px; justify-content: center; font-size: .88rem; color: #aaa; margin: 8px 0 18px; }
+.leyenda i { display: inline-block; width: 14px; height: 14px; border-radius: 3px; vertical-align: -2px; margin-right: 6px; }
+.leyenda .l-uno { background: var(--blue); }
+.leyenda .l-nuevo { background: var(--accent); }
+.leyenda .l-piv { outline: 2px solid #fff; outline-offset: -2px; background: rgba(255,255,255,0.06); }
+.leyenda .l-arista { width: 22px; height: 0; border-top: 2px dashed var(--accent); border-radius: 0; vertical-align: 4px; }
+
+
+/* ============================================================
+   Tutorial Equipo 2 — componentes nuevos
+   ============================================================ */
+.lead { font-size: 1.15rem; color: #f1f1f1; }
+.tabla-scroll { overflow-x: auto; margin: 16px 0 24px; }
+.tabla-scroll table { margin: 0; min-width: 520px; }
+
+/* Preguntas de repaso (P1-P7): se despliega la respuesta */
+.repaso { margin: 18px 0 26px; }
+.repaso .accordion-btn { background: linear-gradient(90deg, #7a1f1f, rgba(122,31,31,.55)); box-shadow: 0 3px 10px rgba(122,31,31,.35); line-height: 1.4; }
+.repaso .accordion-btn:hover { background: linear-gradient(90deg, #922626, #b03a3a); }
+.repaso .accordion-btn .pn { color: #ffd36b; margin-right: 8px; white-space: nowrap; }
+.repaso .accordion-content { border-color: rgba(122,31,31,.4); }
+.repaso .accordion-content strong.r { color: #aaffcc; }
+
+/* Etiqueta de sección con icono */
+.chip { display: inline-block; font-size: .78rem; letter-spacing: .6px; text-transform: uppercase; color: #000; background: var(--accent); padding: 2px 10px; border-radius: 20px; font-weight: 700; margin-bottom: 6px; }
+
+/* Lista de requerimientos no funcionales (árbol) */
+.arbol { list-style: none; padding-left: 4px; }
+.arbol > li { margin-bottom: 14px; }
+.arbol > li > strong { color: var(--gold2); }
+.arbol ul { margin: 6px 0 0; padding-left: 22px; }
+
+/* Entradas de bibliografía */
+.ref-entry { background: var(--glass); border: 1px solid rgba(255,255,255,.08); border-left: 4px solid var(--gold); border-radius: 0 var(--radius) var(--radius) 0; padding: 12px 16px; margin: 0 0 12px; line-height: 1.6; color: #e0e0e0; }
+.ref-entry .ref-type { display: inline-block; font-size: .78rem; color: var(--gold2); font-weight: 700; letter-spacing: .4px; text-transform: uppercase; margin-bottom: 3px; }
+.ref-entry a { color: #8bbfff; word-break: break-all; }
+.ref-entry a:hover { color: #ffd36b; }
+.ref-entry .uso { display: block; font-size: .85rem; color: #9aa0b5; margin-top: 2px; }
+
+/* Tarjetas enlazadas y estados */
+.card.link { text-decoration: none; display: block; }
+a { color: #8bbfff; }
+a:hover { color: #ffd36b; }
+
+/* Imágenes de apoyo con pie */
+figure.fig-libro img { cursor: zoom-in; }
+
+/* ─── Responsive ─── */
+@media (max-width: 760px) {
+  .wrap { margin: 10px 8px 24px; padding: 18px 16px 36px; border-radius: 12px; }
+  header.page-header { margin: -4px -4px 22px; min-height: 140px; padding: 26px 14px 20px; }
+  .page-title { font-size: 1.7rem; }
+  h2 { font-size: 1.25rem; }
+  p, ul li, ol li { font-size: 1rem; }
+  p { text-align: left; }
+  figure { width: 100%; }
+  .card-grid { grid-template-columns: 1fr; }
+  .proceso-paso { flex-direction: column; gap: 6px; }
+  table { font-size: .92rem; }
+  th, td { padding: 8px 9px; }
+}
+@media (prefers-reduced-motion: reduce) { .card, .accordion-btn { transition: none; } }
+
+/* ─── Impresión / PDF (documentación completa) ─── */
+@media print {
+  *, *::before, *::after { background: transparent !important; color: #000 !important; box-shadow: none !important; text-shadow: none !important; }
+  html, body { background: #fff !important; }
+  .wrap { max-width: none; margin: 0; padding: 0; border: 0; border-radius: 0; }
+  header.page-header { min-height: 0; margin: 0 0 14px; padding: 6px 0 10px; border-bottom: 2px solid #000; border-radius: 0; }
+  .page-title { font-size: 1.7rem; }
+  .card, .definicion, .proceso-paso, table, blockquote, .ref-entry { border: 1px solid #888 !important; break-inside: avoid; }
+  th, td { border: 1px solid #aaa; }
+  .accordion-btn { display: block; border: 0; border-bottom: 1px solid #888; font-weight: bold; padding: 6px 0; }
+  .accordion-btn::after { content: none; }
+  .accordion-content { display: block !important; border: 0; padding: 4px 0 10px; }
+  a { text-decoration: none; }
+  figure.fig-libro img { max-height: 300px; }
+  .seccion-tema { break-before: page; border-top: 0; }
+  h2, h3 { break-after: avoid; }
+}

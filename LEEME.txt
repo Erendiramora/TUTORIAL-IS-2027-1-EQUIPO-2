@@ -1,0 +1,19 @@
+PLANTILLA DE TUTORIAL — Estructuras Discretas
+Ábranla con index.html.
+
+Qué hay que cambiar (busquen los textos entre [corchetes] y las "XX"):
+1. index.html: título de la pestaña, nombres y correos del panel «Contacto», nombres de los PDF.
+2. portada.html: asignatura, grupo, profesor, tema, integrantes y semestre.
+3. temario, objetivo, introduccion, desarrollo, conclusion, bibliografia: reemplazar el texto guía.
+4. ejemplos.html: editar el arreglo EJEMPLOS dentro del <script>.
+5. cuestionario.html: editar el arreglo todasLasPreguntas dentro del <script>.
+6. juego.html (sección «Software» del índice): colocar el software del equipo (se conserva el estilo visual).
+7. Colocar en media/pdf/ el cuestionario y la escaleta, en media/video/ el video (Video_eq03.mp4)
+   y las imágenes del tema en imagenes/.
+
+Importante: si copian archivos desde el Finder de Mac, NO elijan «Reemplazar» sobre una carpeta
+(por ejemplo media/): el Finder borra la carpeta completa. Usen «Combinar».
+
+Temas de fondo: el panel «Temas» (índice, abajo a la izquierda) cambia el fondo con las imágenes
+de media/tema/tema1.jpg a tema5.jpg. Para agregar más, suban temaN.jpg (hasta tema9.jpg) y
+agreguen en ui.css las reglas de div#theme.themeN y #nlt-themeN, y el <li> en index.html.

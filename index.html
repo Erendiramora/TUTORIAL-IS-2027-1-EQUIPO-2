@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="Author" content="Equipo 2">
+ <meta name="description" content="Tutorial: Fundamentos para los requerimientos del software. Requerimientos básicos del sistema. Ingeniería de Software, Facultad de Ingeniería, UNAM.">
+ <title>Eq 2 | Tutorial: Requerimientos Básicos del Sistema</title>
+ <script src="media/js/jq.js" type="text/javascript"></script>
+ <script src="media/js/m.js" type="text/javascript"></script>
+ <script src="media/js/ui.js" type="text/javascript"></script>
+ <link rel="stylesheet" href="media/css/ui.css" type="text/css">
+ <link rel="icon" href="media/img/logo_fi.png">
+ <script type="text/javascript">
+ $(document).ready(function() {
+  var paginas = {
+   a1: 'portada', a2: 'temario', a3: 'objetivo', a4: 'introduccion', a5: 'desarrollo',
+   a15: 'ejemplos', a10: 'video', a11: 'juego', a12: 'cuestionario', a13: 'conclusion', a14: 'bibliografia'
+  };
+  $('#index a').on('click', function (e) {
+   e.preventDefault();
+   var destino = paginas[this.id];
+   $('iframe#contents').replaceWith("<iframe id='contents' title='Contenido del tutorial' src='" + destino + ".html'></iframe>");
+   $('#index a').removeClass('activo').removeAttr('aria-current');
+   $(this).addClass('activo').attr('aria-current', 'page');
+   if (window.closeTutorialNav) { window.closeTutorialNav(); }
+  });
+  $('#a1').addClass('activo').attr('aria-current', 'page');
+ });
+ </script>
+</head>
+<body>
+ <div id="wrapper">
+ <nav id="nav-left" aria-label="Índice del tutorial">
+ <div id="index">
+ <h2>Índice</h2>
+ <ul>
+ <li><a id="a1" href="#">Inicio</a></li>
+ <li><a id="a2" href="#">Temario</a></li>
+ <li><a id="a3" href="#">Objetivo</a></li>
+ <li><a id="a4" href="#">Introducción</a></li>
+ <li><a id="a5" href="#">Desarrollo</a></li>
+ <li><a id="a15" href="#">Ejemplos</a></li>
+ <li><a id="a10" href="#">Video</a></li>
+ <li><a id="a11" href="#">Software</a></li>
+ <li><a id="a12" href="#">Cuestionario</a></li>
+ <li><a id="a13" href="#">Conclusión</a></li>
+ <li><a id="a14" href="#">Bibliografía</a></li>
+ </ul>
+ </div>
+ <div id="themes">
+ <h2>Temas</h2>
+ <ul>
+ <li id="nlt-theme1" role="button" tabindex="0" title="Facultad de Ingeniería (entrada)"></li>
+ <li id="nlt-theme2" role="button" tabindex="0" title="Facultad de Ingeniería (ofrenda de Día de Muertos)"></li>
+ <li id="nlt-theme3" role="button" tabindex="0" title="Facultad de Ingeniería (atardecer)"></li>
+ <li id="nlt-theme4" role="button" tabindex="0" title="Jardín con la locomotora"></li>
+ <li id="nlt-theme5" role="button" tabindex="0" title="Laboratorios de Ingeniería"></li>
+ <li id="nlt-theme6" role="button" tabindex="0" title="Escalinatas y escultura roja"></li>
+ <li id="nlt-theme7" role="button" tabindex="0" title="Alberca universitaria"></li>
+ <li id="nlt-theme8" role="button" tabindex="0" title="#OrgulloUNAM"></li>
+ <li id="nlt-theme9" role="button" tabindex="0" title="Palacio de Minería"></li>
+ </ul>
+ </div>
+ </nav>
+
+ <nav id="nav-right" aria-label="Archivos y contacto">
+ <div id="files">
+ <h2>Archivos</h2>
+ <ul>
+ <li><a href="media/pdf/Documentacion_Completa_equipo02.pdf" target="_blank" rel="noopener">Documentación completa</a></li>
+ <li><a href="media/pdf/Cuestionario_Respuestas_equipo02.pdf" target="_blank" rel="noopener">Cuestionario y respuestas</a></li>
+ <li class="sub">Recursos sugeridos</li>
+ <li><a href="https://www.tutorialesprogramacionya.com/ingenieriadesoftware/requerimientosdesoftware/tema1.html" target="_blank" rel="noopener">Requerimientos de software (Tutoriales Programación Ya)</a></li>
+ <li><a href="https://standards.ieee.org/" target="_blank" rel="noopener">Estándares IEEE</a></li>
+ <li><a href="https://www.iso.org/" target="_blank" rel="noopener">Normas ISO</a></li>
+ </ul>
+ </div>
+ <div id="contact">
+ <h2>Contacto</h2>
+ <ul>
+ <li><span>Albarran Pacheco Oscar Salvador</span></li>
+ <li class="mail"><a href="mailto:albarran.pacheco.oscar@gmail.com">albarran.pacheco.oscar@gmail.com</a></li>
+ <li><span>Cordova Villar Mario Alberto</span></li>
+ <li class="mail"><a href="mariocv670@gmail.com">mariocv670@gmail.com</a></li>
+ <li><span>Maldonado Hernandez Itzel</span></li>
+ <li class="mail"><a href="mailto:itzhm49@gmail.com">itzhm49@gmail.com</a></li>
+ <li><span>Montañez Camacho Ismael</span></li>
+ <li class="mail"><a href="montanezismael51@gmail.com">montanezismael51@gmail.com</a></li>
+ <li><span>Morales Garcia Erendira Sophia</span></li>
+ <li class="mail"><a href="mailto:sophiamoralesgar@gmail.com">sophiamoralesgar@gmail.com</a></li>
+ </ul>
+ </div>
+ </nav>
+ <div id="nav-left-trigger" role="button" tabindex="0" aria-label="Abrir índice y temas"></div>
+ <div id="nav-right-trigger" role="button" tabindex="0" aria-label="Abrir archivos y contacto"></div>
+ <div id="theme" class="theme1">
+ <iframe id="contents" title="Contenido del tutorial" src="portada.html"></iframe>
+ </div>
+ <footer id="footer">
+ <img id="logounam" src="media/img/logo_unam.png" alt="Logotipo de la UNAM">
+ <img id="logofi" src="media/img/logo_fi.png" alt="Logotipo de la Facultad de Ingeniería">
+ </footer>
+ </div>
+</body>
+</html>

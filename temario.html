@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Temario</title>
+ <link rel="stylesheet" href="page.css">
+ <script src="media/js/jq.js"></script>
+ <script src="media/js/solo.js"></script>
+</head>
+<body>
+<div class="wrap">
+
+ <header class="page-header" style="--hero:url('media/tema/tema2.jpg')">
+ <span class="page-num">Equipo 2 · Ingeniería de Software</span>
+ <h1 class="page-title">Temario</h1>
+ <p class="page-subtitle">Fundamentos para los requerimientos del software. Requerimientos Básicos del Sistema</p>
+ </header>
+
+ <p class="lead">
+ Este tutorial presenta los <strong style="color:#D90;">fundamentos de los requerimientos del software</strong>:
+ qué son, cómo se clasifican, qué propiedades debe tener un buen requerimiento y cómo se obtienen, validan y
+ mantienen a lo largo del proyecto. El contenido avanza de lo general a lo específico y termina con práctica
+ interactiva para comprobar lo aprendido.
+ </p>
+
+ <h2>Contenido del tutorial</h2>
+ <div class="tabla-scroll">
+ <table>
+ <thead><tr><th>#</th><th>Tema</th><th>Subtemas principales</th></tr></thead>
+ <tbody>
+ <tr><td>1</td><td><strong>Objetivo</strong></td><td>Propósito del tutorial y lo que se logrará al terminarlo</td></tr>
+ <tr><td>2</td><td><strong>Introducción</strong></td><td>Ingeniería de requerimientos · definición de requerimiento · niveles de audiencia</td></tr>
+ <tr><td>3</td><td><strong>Desarrollo</strong></td>
+ <td>Especificación de requerimientos · Clasificación de los requerimientos · Tipos de requerimientos · Proceso de obtención · Gestión de cambios</td></tr>
+ <tr><td>4</td><td><strong>Ejemplos</strong></td><td>Casos resueltos paso a paso</td></tr>
+ <tr><td>5</td><td><strong>Video explicativo</strong></td><td>Resumen audiovisual del tema</td></tr>
+ <tr><td>6</td><td><strong>Software interactivo</strong></td><td>Simulador para clasificar y redactar requerimientos</td></tr>
+ <tr><td>7</td><td><strong>Cuestionario</strong></td><td>51 preguntas de opción múltiple con la fuente de cada respuesta</td></tr>
+ <tr><td>8</td><td><strong>Conclusión</strong></td><td>Puntos clave y reflexión final</td></tr>
+ <tr><td>9</td><td><strong>Bibliografía</strong></td><td>Libros, normas y sitios consultados</td></tr>
+ </tbody>
+ </table>
+ </div>
+
+ <h2>Materiales complementarios</h2>
+ <div class="card-grid">
+ <div class="card"><span class="card-icon">🧩</span><h4>Software</h4>
+ <p>Un simulador con tres niveles y un modo libre para practicar la clasificación y la redacción de requerimientos.</p></div>
+ <div class="card"><span class="card-icon">📋</span><h4>Cuestionario</h4>
+ <p>Evaluación de opción múltiple: 10 preguntas al azar por intento, con puntaje y el lugar donde está la respuesta.</p></div>
+ <div class="card"><span class="card-icon">🎬</span><h4>Video</h4>
+ <p>Video de apoyo con la explicación del tema.</p></div>
+ <div class="card"><span class="card-icon">📁</span><h4>Archivos</h4>
+ <p>En el panel derecho: documentación completa, cuestionario con respuestas y recursos sugeridos.</p></div>
+ </div>
+
+</div>
+<script>
+$(document).ready(function(){
+ $('.accordion-btn').on('click',function(){
+ $(this).toggleClass('active').next('.accordion-content').slideToggle(350);
+ });
+});
+</script>
+</body>
+</html>

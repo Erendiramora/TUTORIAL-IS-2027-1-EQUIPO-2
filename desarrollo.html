@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Desarrollo</title>
+ <link rel="stylesheet" href="page.css">
+ <script src="media/js/jq.js"></script>
+ <script src="media/js/solo.js"></script>
+</head>
+<body>
+<div class="wrap">
+
+ <header class="page-header" style="--hero:url('media/tema/tema4.jpg')">
+ <span class="page-num">Desarrollo</span>
+ <h1 class="page-title">Fundamentos para los requerimientos del software</h1>
+ <p class="page-subtitle">Especificación · Clasificación · Tipos de requerimientos · Proceso de obtención · Gestión de cambios</p>
+ </header>
+
+ <nav aria-label="Contenido de esta página" class="card" style="margin-bottom:26px;">
+ <h4>En esta página</h4>
+ <p style="line-height:2;">
+ <a href="#especificacion">1. Especificación de requerimientos</a> ·
+ <a href="#clasificacion">2. Clasificación</a> ·
+ <a href="#tipos">3. Tipos de requerimientos</a> ·
+ <a href="#proceso">4. Proceso de obtención</a> ·
+ <a href="#cambios">5. Gestión de cambios</a>
+ </p>
+ </nav>
+ <p class="fuente" style="margin-top:0;">Al pasar el cursor sobre cada número de cita aparece el autor y la página; las referencias completas están al final de la página. Al terminar cada tema encontrarás preguntas de repaso con su respuesta.</p>
+
+ <!-- ================= 1. ESPECIFICACIÓN ================= -->
+ <h1 class="page-title" id="especificacion" style="font-size:1.6rem;">Especificación de requerimientos</h1>
+
+ <h2>Documentación de requerimientos</h2>
+ <p>
+ Esta parte constituye el <strong>documento técnico y formal</strong> que será la base para un contrato entre comprador y
+ desarrollador. Consta de una estructura que, aunque simple, busca la mayor claridad: que sea comprensible tanto para el
+ desarrollador como para el cliente o los clientes interesados.
+ </p>
+ <p>
+ En principio, los requerimientos redactados en este documento deben ser <strong>consistentes y completos</strong>, además de
+ que todas las funciones deben estar especificadas y, entre requerimientos, no debe existir conflicto por incompatibilidad.<sup class="cita-ref"><a href="#ref2" title="Sommerville (1992), pp. 51-53">2</a></sup>
+ </p>
+
+ <h2>Características de un buen requerimiento: reglas de Heininger</h2>
+ <p>
+ La calidad de un requerimiento es esencial: no solo para su correcto desarrollo y conclusión, sino porque, en conjunto con el
+ documento de requerimientos, dictamina la viabilidad del diseño.
+ </p>
+ <div class="definicion">
+ <span class="def-tit">Un requerimiento completo debe indicar forzosamente tres elementos</span>
+ <ol>
+ <li>El <strong>comportamiento esperado</strong>.</li>
+ <li>Su <strong>justificación técnica o de negocio</strong>.</li>
+ <li>Sus <strong>criterios de aceptación cuantificables</strong>.</li>
+ </ol>
+ </div>
+ <p>
+ Por su parte, el conjunto de todos los requerimientos (plasmados en el documento de Especificación de Requisitos del
+ Software o SRS) debe regirse por los <strong>6 requisitos fundamentales de Heininger</strong>:<sup class="cita-ref"><a href="#ref2" title="Sommerville (1992), pp. 51-53">2</a></sup>
+ </p>
+ <div class="proceso-paso"><span class="paso-num">1</span><div class="paso-body"><h4>Comportamiento externo</h4><p>Especificar únicamente el comportamiento externo del sistema.</p></div></div>
+ <div class="proceso-paso"><span class="paso-num">2</span><div class="paso-body"><h4>Restricciones</h4><p>Establecer restricciones claras sobre la implementación.</p></div></div>
+ <div class="proceso-paso"><span class="paso-num">3</span><div class="paso-body"><h4>Fácil de cambiar</h4><p>Ser fácil de cambiar (diseño modular).</p></div></div>
+ <div class="proceso-paso"><span class="paso-num">4</span><div class="paso-body"><h4>Mantenimiento</h4><p>Servir como herramienta base para el mantenimiento futuro.</p></div></div>
+ <div class="proceso-paso"><span class="paso-num">5</span><div class="paso-body"><h4>Vida útil</h4><p>Contemplar la vida útil del sistema y la evolución del hardware.</p></div></div>
+ <div class="proceso-paso"><span class="paso-num">6</span><div class="paso-body"><h4>Eventos no deseados</h4><p>Definir respuestas aceptables ante eventos no deseados o fallos.</p></div></div>
+
+ <!-- ================= 2. CLASIFICACIÓN ================= -->
+ <div class="seccion-tema">
+ <h1 class="page-title" id="clasificacion" style="font-size:1.6rem;">Clasificación de los requerimientos</h1>
+ <p>Los requerimientos se clasifican de distintas formas según su funcionalidad, su nivel de detalle y su alcance.</p>
+
+ <h2>Según el nivel de detalle y alcance</h2>
+ <div class="card-grid">
+ <div class="card"><span class="card-icon">👤</span><h4>Requerimientos del usuario</h4>
+ <p>Descripciones en lenguaje natural, dirigidas a los usuarios finales, que especifican servicios y restricciones generales, sin entrar en detalles técnicos.</p></div>
+ <div class="card"><span class="card-icon">🛠️</span><h4>Requerimientos del sistema</h4>
+ <p>Especificación detallada y precisa de funciones, comportamientos y restricciones, destinada al equipo de desarrollo.</p></div>
+ <div class="card"><span class="card-icon">🏛️</span><h4>Requerimientos de dominio</h4>
+ <p>Derivados del ámbito de aplicación —normativas, reglas del negocio, leyes— independientemente de las peticiones directas de los usuarios.</p></div>
+ </div>
+ <p class="fuente">Fuente de este apartado: Sommerville (2019), cap. 4, sección 4.1: Tipos de requerimientos, pp. 96-98.<sup class="cita-ref"><a href="#ref1" title="Sommerville (2019), cap. 4, sección 4.1, pp. 96-98">1</a></sup></p>
+
+ <h3>Requerimientos de usuario</h3>
+ <p>
+ Deben describir los servicios funcionales y las restricciones operativas de tal forma que sean plenamente comprensibles por
+ los usuarios finales y la gerencia, sin requerir conocimiento técnico detallado. Deben redactarse en un lenguaje sencillo,
+ apoyándose en tablas, formularios estructurados y diagramas intuitivos. Sin embargo, depender exclusivamente de frases en
+ lenguaje natural libre conlleva diversos problemas inherentes:
+ </p>
+ <ol>
+ <li><strong>Falta de claridad y ambigüedad:</strong> a veces es difícil utilizar el lenguaje de forma precisa sin hacer el documento denso, poco conciso y difícil de leer. Un mismo término puede ser interpretado de distintas maneras por el cliente y el desarrollador.</li>
+ <li><strong>Confusión y mezcla de conceptos:</strong> no se distinguen claramente los requerimientos funcionales de los no funcionales, mezclando en un mismo párrafo metas del sistema, directrices comerciales e información prematura sobre el diseño interno.</li>
+ <li><strong>Conjunción (saturación) de requerimientos:</strong> diversos requerimientos diferentes, con distintos niveles de prioridad, se expresan de forma conjunta como una única directriz, lo que imposibilita su evaluación y validación individual.</li>
+ </ol>
+ <p>
+ Para mitigar estos inconvenientes, las mejores prácticas de la ingeniería de software dictan imponer una
+ <strong>estructura estandarizada</strong> al documento, separando rigurosamente el concepto principal de los detalles técnicos
+ y añadiendo siempre una <strong>justificación explícita</strong> (el «porqué») para cada requerimiento. Esto evita que las funciones
+ parezcan arbitrarias ante los ingenieros que posteriormente diseñarán el sistema.<sup class="cita-ref"><a href="#ref3" title="Sommerville (2005), pp. 109-110">3</a></sup>
+ </p>
+
+ <h3>Requerimientos del dominio</h3>
+ <p>
+ Provienen directamente del dominio de aplicación del sistema (por ejemplo, normativas bancarias, leyes de protección de
+ datos o principios físicos) y reflejan las características inmutables de ese entorno. Pueden manifestarse tanto de forma
+ funcional como no funcional, y su omisión suele invalidar la utilidad del sistema por completo.<sup class="cita-ref"><a href="#ref3" title="Sommerville (2005), pp. 112-113 (Figs. 6.3 y 6.4)">3</a></sup>
+ </p>
+
+ <h3>Requerimientos del sistema (especificación detallada)</h3>
+ <p>
+ Son versiones extendidas y altamente formalizadas de los requerimientos del usuario. Constituyen el documento técnico que
+ los ingenieros de software utilizan como punto de partida estricto para el diseño y operan como el contrato formal entre el
+ comprador y el contratista.
+ </p>
+ <ul>
+ <li>Agregan un nivel profundo de detalle, explicando de manera exhaustiva cómo el sistema debe proporcionar los requerimientos del usuario.</li>
+ <li>En teoría, deben limitarse a describir rigurosamente el <strong>comportamiento externo</strong> del sistema, sus interfaces y sus restricciones operativas.</li>
+ <li>Bajo ninguna circunstancia deben dictar <em>cómo</em> se debe diseñar o implementar el software internamente, preservando la abstracción arquitectónica.</li>
+ <li>Debido a los problemas del lenguaje natural, en esta etapa se emplean notaciones más estructuradas, como formularios matemáticos, Lenguajes de Descripción de Programas (PDL) o modelos gráficos, los cuales permiten verificaciones sintácticas y semánticas.</li>
+ </ul>
+ <div class="repaso">
+ <button class="accordion-btn" type="button"><span><span class="pn">P1.</span>¿Cuáles son los tres grupos en que se clasifican los requerimientos y por qué un requerimiento de seguridad puede terminar generando requerimientos funcionales?</span></button>
+ <div class="accordion-content"><p><strong class="r">Respuesta:</strong> Funcionales, no funcionales y del dominio. Un requerimiento de seguridad parece no funcional, pero al detallarlo genera requerimientos claramente funcionales; por ejemplo, la necesidad de incluir recursos para autenticar a los usuarios.</p></div>
+</div>
+
+ <h2>Según su naturaleza: funcionales y no funcionales</h2>
+ <p>A menudo, los requerimientos de sistemas de software se clasifican para facilitar su análisis y priorización.</p>
+
+ <h3>Requerimientos funcionales</h3>
+ <p>
+ Son declaraciones de los servicios que debe proporcionar el sistema, detallando la manera en que este debe reaccionar a
+ entradas particulares y cómo se debe comportar en situaciones específicas. Para ser efectivos, deben cumplir con dos
+ propiedades esenciales: ser <strong>completos</strong> (especificar absolutamente todos los servicios requeridos por el usuario) y
+ <strong>consistentes</strong> (no presentar contradicciones lógicas entre sí). En algunos contextos, también declaran explícitamente
+ las operaciones que el sistema <em>no</em> debe ejecutar.
+ </p>
+ <p>
+ El autor aclara que esta separación no es tan nítida como parece. Por ejemplo, un requerimiento de seguridad del usuario
+ parece no funcional, pero al detallar puede generar requerimientos claramente funcionales, como incluir recursos para
+ autenticar usuarios.<sup class="cita-ref"><a href="#ref2" title="Sommerville (1992), pp. 56-57">2</a></sup><sup class="cita-ref"><a href="#ref3" title="Sommerville (2005), pp. 109 y 111">3</a></sup>
+ </p>
+ <ul>
+ <li><strong>Completos:</strong> se deben especificar cada una de las necesidades requeridas por el usuario del sistema.</li>
+ <li><strong>Consistentes:</strong> no deben ser ambiguos ni contradictorios entre sí.</li>
+ </ul>
+ <blockquote>
+ «Los requerimientos funcionales describen qué debe hacer el sistema en respuesta a una entrada determinada o en respuesta
+ a un conjunto de entradas. Pueden expresar también qué no debe hacer el sistema.»<sup class="cita-ref"><a href="#ref4" title="Pressman y Maxim (2020), cap. 7, sección 7.2: Requerimientos funcionales y no funcionales, p. 194">4</a></sup>
+ <cite>— Pressman y Maxim (2020), cap. 7, sección 7.2, p. 194</cite>
+ </blockquote>
+ <div class="repaso">
+ <button class="accordion-btn" type="button"><span><span class="pn">P2.</span>Define un requerimiento funcional con tus palabras y explica qué riesgo tiene redactarlo de forma ambigua.</span></button>
+ <div class="accordion-content"><p><strong class="r">Respuesta:</strong> Es una declaración de un servicio que el sistema debe proporcionar. Si se redacta de forma ambigua, el desarrollador puede cumplirlo a medias.</p></div>
+</div>
+
+ <h3>Requerimientos no funcionales</h3>
+ <p>
+ Son las restricciones impuestas sobre los servicios o funciones ofrecidos por el sistema. Dado que definen las propiedades
+ emergentes del software, a menudo se aplican al sistema en su totalidad y rara vez a características individuales. Se
+ subdividen en tres tipos: <strong>requisitos del producto</strong> (velocidad, eficiencia de memoria, fiabilidad),
+ <strong>requisitos del proceso</strong> (estándares de codificación, metodologías) y <strong>requisitos externos</strong> (interoperabilidad
+ legal o de hardware). Es mandatorio que los requerimientos no funcionales sean <strong>comprobables y cuantificables</strong> mediante
+ métricas exactas (por ejemplo, transacciones por segundo o tasa límite de fallos), evitando descripciones subjetivas como
+ «fácil de usar».<sup class="cita-ref"><a href="#ref3" title="Sommerville (2005), pp. 109-111">3</a></sup>
+ </p>
+ <blockquote>
+ «Los requerimientos no funcionales se refieren a las características del sistema tales como fiabilidad, tiempo de respuesta,
+ facilidad de mantenimiento, facilidad de uso y seguridad. No están directamente relacionados con las funciones que el
+ sistema debe realizar.»<sup class="cita-ref"><a href="#ref5" title="Wiegers y Beatty (2013), cap. 1: El papel de los requerimientos, sección: Tipos de requerimientos, p. 12">5</a></sup>
+ <cite>— Wiegers y Beatty (2013), cap. 1, p. 12</cite>
+ </blockquote>
+ <div class="repaso">
+ <button class="accordion-btn" type="button"><span><span class="pn">P3.</span>¿Por qué el incumplimiento de un requerimiento no funcional puede ser más grave que el de uno funcional? Da un ejemplo.</span></button>
+ <div class="accordion-content"><p><strong class="r">Respuesta:</strong> Porque un fallo no funcional (como una caída total de seguridad o un rendimiento inaceptable) puede hacer que todo el sistema sea inutilizable, a pesar de tener las funciones correctas. Ejemplo: una aplicación bancaria que realiza correctamente todas sus operaciones, pero que tarda varios minutos en responder o expone los datos de los usuarios.</p></div>
+</div>
+ </div>
+
+ <!-- ================= 3. TIPOS ================= -->
+ <div class="seccion-tema">
+ <h1 class="page-title" id="tipos" style="font-size:1.6rem;">Tipos de requerimientos no funcionales</h1>
+ <p>Definen cómo debe operar el sistema, sus atributos de calidad y sus restricciones. Se clasifican en tres grupos:</p>
+
+ <ul class="arbol">
+ <li><strong>1. Requerimientos del producto</strong>
+ <ul>
+ <li>Requerimientos de usabilidad</li>
+ <li>Requerimientos de eficiencia: <em>rendimiento</em> y <em>espacio</em></li>
+ <li>Requerimientos de fiabilidad</li>
+ <li>Requerimientos de portabilidad</li>
+ </ul></li>
+ <li><strong>2. Requerimientos organizacionales</strong>
+ <ul>
+ <li>Requerimientos de entrega</li>
+ <li>Requerimientos de implementación</li>
+ <li>Requerimientos de estándares</li>
+ </ul></li>
+ <li><strong>3. Requerimientos externos</strong>
+ <ul>
+ <li>Requerimientos de interoperabilidad</li>
+ <li>Requerimientos éticos</li>
+ <li>Requerimientos legislativos: <em>privacidad</em> y <em>seguridad</em></li>
+ </ul></li>
+ </ul>
+
+ <figure class="fig-libro">
+ <img src="imagenes/figura_6_3.png" alt="Diagrama en árbol de los tipos de requerimientos no funcionales: del producto (usabilidad, eficiencia con rendimiento y espacio, fiabilidad, portabilidad), organizacionales (entrega, implementación, estándares) y externos (interoperabilidad, éticos, legislativos con privacidad y seguridad)." loading="lazy">
+ <figcaption>Figura 6.3. Tipos de requerimientos no funcionales. Tomado de <em>Ingeniería del software</em> (7.ª ed., pp. 112-113), por I. Sommerville, 2005, Pearson Educación.<sup class="cita-ref"><a href="#ref3" title="Sommerville (2005), pp. 112-113 (Figs. 6.3 y 6.4)">3</a></sup></figcaption>
+ </figure>
+ <div class="repaso">
+ <button class="accordion-btn" type="button"><span><span class="pn">P4.</span>Clasifica cada caso como del producto, organizacional o externo, y justifica: (a) el sistema debe programarse en Java, por política de la empresa; (b) el sistema debe cumplir la ley de protección de datos personales; (c) el sistema debe responder en menos de 2 segundos.</span></button>
+ <div class="accordion-content"><p><strong class="r">Respuesta:</strong> <br><strong>(a) Organizacional:</strong> la elección del lenguaje de programación es un requerimiento de implementación que se deriva de políticas de la empresa.<br><strong>(b) Externo:</strong> cumplir una ley viene de factores ajenos al sistema, como los requerimientos legislativos.<br><strong>(c) Del producto:</strong> el tiempo de respuesta es un requerimiento de rendimiento sobre el comportamiento del producto.</p></div>
+</div>
+
+ <h2>Requerimientos críticos y su efecto en la arquitectura</h2>
+ <h3>Seguridad</h3>
+ <p>
+ La seguridad se cuenta entre los requerimientos no funcionales que suelen restringir características del sistema como un todo.
+ En el software confiable, los usuarios malintencionados no deben poder acceder al sistema ni dañarlo. La seguridad es un
+ requerimiento crítico: será necesario usar una <strong>estructura en capas</strong> para la arquitectura, con los activos más críticos
+ protegidos en las capas más internas, y con un alto nivel de validación de seguridad aplicado a dichas capas.<sup class="cita-ref"><a href="#ref7" title="Celi Párraga et al. (2023), pp. 11, 41 y 68">7</a></sup>
+ </p>
+ <div class="repaso">
+ <button class="accordion-btn" type="button"><span><span class="pn">P5.</span>Si la seguridad es un requerimiento crítico, ¿qué estructura debe tener la arquitectura y dónde se colocan los activos más críticos?</span></button>
+ <div class="accordion-content"><p><strong class="r">Respuesta:</strong> Una estructura en capas, con los activos más críticos en las capas más internas y con un alto nivel de validación de seguridad en esas capas.</p></div>
+</div>
+ <h3>Rendimiento</h3>
+ <p>
+ Cuando el rendimiento es un requerimiento crítico, la arquitectura debe diseñarse para localizar las operaciones críticas
+ dentro de un pequeño número de componentes, con todos estos componentes desplegados en la misma computadora en lugar de
+ distribuirlos por la red. Eso implica usar componentes relativamente grandes en vez de componentes pequeños de grano fino,
+ lo que reduce las comunicaciones entre componentes. También pueden considerarse organizaciones del sistema en tiempo de
+ operación que permitan que este sea replicable y ejecutable en diferentes procesadores.<sup class="cita-ref"><a href="#ref7" title="Celi Párraga et al. (2023), pp. 41 y 68">7</a></sup>
+ </p>
+ <div class="repaso">
+ <button class="accordion-btn" type="button"><span><span class="pn">P6.</span>Si el rendimiento es un requerimiento crítico, ¿por qué se prefieren componentes grandes?</span></button>
+ <div class="accordion-content"><p><strong class="r">Respuesta:</strong> Porque así se reducen las comunicaciones entre componentes.</p></div>
+</div>
+ <h3>Disponibilidad</h3>
+ <p>
+ La disponibilidad es uno de los requerimientos no funcionales que, junto con el rendimiento y la seguridad, suelen
+ especificar o restringir características del sistema como un todo. Es un requerimiento crítico: la arquitectura tiene que
+ diseñarse para incluir <strong>componentes redundantes</strong> de manera que sea posible sustituir y actualizar componentes sin
+ detener el sistema.<sup class="cita-ref"><a href="#ref7" title="Celi Párraga et al. (2023), pp. 41 y 69">7</a></sup>
+ </p>
+ <div class="repaso">
+ <button class="accordion-btn" type="button"><span><span class="pn">P7.</span>Si la disponibilidad es un requerimiento crítico, ¿qué debe incluir la arquitectura y para qué?</span></button>
+ <div class="accordion-content"><p><strong class="r">Respuesta:</strong> Debe incluir componentes redundantes, para poder sustituir y actualizar componentes sin detener el sistema.</p></div>
+</div>
+
+ <h2>Cualidades de un requerimiento bien escrito</h2>
+ <p>Todo requerimiento debe cumplir un conjunto de propiedades para ser válido y útil:</p>
+ <blockquote>
+ «Un requerimiento bien escrito debe ser específico, claro, completo, consistente, verificable, trazable y necesario. Si no se
+ puede probar que se cumple, no es un buen requerimiento.»<sup class="cita-ref"><a href="#ref6" title="Robertson y Robertson (2012), cap. 5: Escribir los requerimientos, sección: Cualidades de un buen requerimiento, p. 112">6</a></sup>
+ <cite>— Robertson y Robertson (2012), cap. 5, p. 112</cite>
+ </blockquote>
+ <div class="card-grid">
+ <div class="card"><span class="card-icon">🎯</span><h4>Expresa una necesidad real</h4><p>Refleja fielmente lo que los usuarios necesitan.</p></div>
+ <div class="card"><span class="card-icon">🔍</span><h4>No ambiguo</h4><p>Tiene una única interpretación posible; no admite dudas.</p></div>
+ <div class="card"><span class="card-icon">📦</span><h4>Completo</h4><p>Contiene toda la información necesaria para su comprensión.</p></div>
+ <div class="card"><span class="card-icon">🤝</span><h4>Consistente</h4><p>No contradice a otros requerimientos del sistema.</p></div>
+ <div class="card"><span class="card-icon">🧪</span><h4>Verificable</h4><p>Se comprueba mediante pruebas, mediciones o inspección si se cumple.</p></div>
+ <div class="card"><span class="card-icon">📊</span><h4>Priorizado</h4><p>Tiene un grado de importancia: esencial, condicional u opcional.</p></div>
+ <div class="card"><span class="card-icon">🧭</span><h4>Trazable</h4><p>Se puede identificar su origen y seguir su evolución en el proyecto.</p></div>
+ </div>
+ </div>
+
+ <!-- ================= 4. PROCESO ================= -->
+ <div class="seccion-tema">
+ <h1 class="page-title" id="proceso" style="font-size:1.6rem;">Proceso de obtención</h1>
+ <blockquote>
+ «La ingeniería de requerimientos es el conjunto de actividades que conducen al acuerdo sobre qué debe hacer el sistema.
+ Comprende la obtención, análisis, especificación y validación de los requerimientos.»<sup class="cita-ref"><a href="#ref1" title="Sommerville (2019), cap. 4, sección 4.2: El proceso de ingeniería de requerimientos, p. 99">1</a></sup>
+ <cite>— Sommerville (2019), cap. 4, sección 4.2, p. 99</cite>
+ </blockquote>
+ <p>
+ La obtención de requerimientos —también llamada ingeniería de requerimientos— es el proceso sistemático de descubrir,
+ documentar y mantener las necesidades que definen el sistema. No es una actividad única, sino un <strong>ciclo iterativo</strong>
+ compuesto por cinco etapas interconectadas:
+ </p>
+
+ <h2>1. Elicitación: descubrir las necesidades</h2>
+ <p>
+ Es la primera etapa: recopilar información mediante entrevistas, talleres, observación, análisis de documentos y prototipos.
+ Se busca descubrir qué necesitan los usuarios, el negocio y el sistema.
+ </p>
+ <blockquote>
+ «La elicitación es el proceso de recopilar información sobre el sistema previsto y sus entornos. Incluye entrevistas con
+ partes interesadas, observación de sistemas existentes, análisis de tareas y talleres. A menudo es la etapa más difícil
+ porque los usuarios no siempre articulan con claridad lo que necesitan.»<sup class="cita-ref"><a href="#ref1" title="Sommerville (2019), cap. 4, sección 4.3: Elicitación y análisis de requerimientos, p. 102">1</a></sup>
+ <cite>— Sommerville (2019), cap. 4, sección 4.3, p. 102</cite>
+ </blockquote>
+ <blockquote>
+ «Cada técnica aporta una perspectiva distinta. Combinar varias reduce el riesgo de pasar por alto necesidades importantes y
+ contrasta la información recibida.»<sup class="cita-ref"><a href="#ref5" title="Wiegers y Beatty (2013), cap. 3: Elicitación de requerimientos, sección: Técnicas de recopilación, p. 47">5</a></sup>
+ <cite>— Wiegers y Beatty (2013), cap. 3, p. 47</cite>
+ </blockquote>
+ <h3>Técnicas principales</h3>
+ <div class="tabla-scroll">
+ <table>
+ <thead><tr><th>Técnica</th><th>¿En qué consiste?</th></tr></thead>
+ <tbody>
+ <tr><td><strong>Entrevistas</strong></td><td>Conversaciones estructuradas o abiertas con usuarios y directivos; permiten profundizar en necesidades específicas.</td></tr>
+ <tr><td><strong>Talleres de trabajo</strong></td><td>Reuniones colaborativas con múltiples interesados para consensuar necesidades.</td></tr>
+ <tr><td><strong>Observación directa</strong></td><td>Presenciar cómo se realizan las tareas en la actualidad; revela necesidades no expresadas verbalmente.</td></tr>
+ <tr><td><strong>Análisis de documentos</strong></td><td>Revisar manuales, informes, normativas y registros de procesos existentes.</td></tr>
+ <tr><td><strong>Prototipado</strong></td><td>Mostrar versiones simplificadas del sistema para que los usuarios validen y ajusten sus expectativas.</td></tr>
+ <tr><td><strong>Cuestionarios</strong></td><td>Recopilar información de un grupo amplio de usuarios de forma estructurada.</td></tr>
+ </tbody>
+ </table>
+ </div>
+
+ <h2>2. Análisis y negociación</h2>
+ <p>
+ Una vez recopilada la información, se examina, se clasifican las necesidades, se detectan contradicciones y se evalúa la
+ viabilidad técnica, económica y temporal.
+ </p>
+ <blockquote>
+ «El análisis transforma la información bruta obtenida en la elicitación en una definición estructurada de requerimientos.
+ Incluye identificar conflictos, establecer prioridades y negociar con los interesados para resolver discrepancias.»<sup class="cita-ref"><a href="#ref4" title="Pressman y Maxim (2020), cap. 7: Ingeniería de requerimientos, sección 7.3: Análisis de requerimientos, p. 202">4</a></sup>
+ <cite>— Pressman y Maxim (2020), cap. 7, sección 7.3, p. 202</cite>
+ </blockquote>
+ <h3>Aspectos clave del análisis</h3>
+ <ul>
+ <li><strong>Resolución de conflictos:</strong> diferentes usuarios pueden tener necesidades opuestas; se busca el equilibrio o se decide según la prioridad del negocio.</li>
+ <li><strong>Evaluación de viabilidad:</strong> ¿es técnicamente posible?, ¿se ajusta al presupuesto?, ¿se puede entregar en el plazo establecido?</li>
+ <li><strong>Clasificación:</strong> separar lo esencial de lo deseable y lo opcional.</li>
+ <li><strong>Refinamiento:</strong> convertir necesidades vagas en declaraciones concretas y comprensibles.</li>
+ </ul>
+ <blockquote>
+ «Negociar no es ceder, sino encontrar la solución que mejor atienda las necesidades del proyecto dentro de las restricciones
+ existentes.»<sup class="cita-ref"><a href="#ref6" title="Robertson y Robertson (2012), cap. 6: Análisis y negociación, p. 131">6</a></sup>
+ <cite>— Robertson y Robertson (2012), cap. 6, p. 131</cite>
+ </blockquote>
+
+ <h2>3. Especificación</h2>
+ <p>
+ Es la etapa de <strong>redactar formalmente</strong> los requerimientos en un documento claro, estructurado y sin ambigüedad.
+ Puede combinar texto, diagramas, tablas y modelos.
+ </p>
+ <blockquote>
+ «La especificación es el documento donde se registran los requerimientos acordados. Debe ser legible tanto para los usuarios
+ como para los desarrolladores, y servir como referencia estable durante todo el proyecto.»<sup class="cita-ref"><a href="#ref1" title="Sommerville (2019), cap. 4, sección 4.4: Especificación de requerimientos, p. 108">1</a></sup>
+ <cite>— Sommerville (2019), cap. 4, sección 4.4, p. 108</cite>
+ </blockquote>
+ <h3>Formatos para especificar</h3>
+ <ul>
+ <li><strong>Texto estructurado:</strong> descripción por cada requerimiento con identificador, propósito y criterios de aceptación.</li>
+ <li><strong>Diagramas de casos de uso:</strong> ilustran las interacciones entre usuarios y el sistema.</li>
+ <li><strong>Modelos de datos:</strong> definen la información que el sistema gestionará.</li>
+ <li><strong>Matrices de trazabilidad:</strong> vinculan cada requerimiento con su origen y con las pruebas que lo verificarán.</li>
+ </ul>
+
+ <h2>4. Validación de requerimientos</h2>
+ <p class="lead"><em>¿Por qué es importante la validación de los requerimientos?</em></p>
+ <p>
+ Revisar que lo escrito coincida con lo que realmente se necesita. Se detectan omisiones, errores y ambigüedades antes de
+ iniciar el desarrollo.
+ </p>
+ <blockquote>
+ «La validación asegura que los requerimientos reflejen fielmente lo que el cliente desea. No es lo mismo que la
+ verificación —que comprueba si se construyó bien el producto—; la validación pregunta: ¿estamos construyendo el producto correcto?»<sup class="cita-ref"><a href="#ref4" title="Pressman y Maxim (2020), cap. 7, sección 7.5: Validación de requerimientos, p. 212">4</a></sup>
+ <cite>— Pressman y Maxim (2020), cap. 7, sección 7.5, p. 212</cite>
+ </blockquote>
+ <p>
+ Una vez que los requerimientos del sistema han sido asentados, deben ser validados y corroborados, con el fin de demostrar que
+ cumplen las necesidades establecidas por el comprador del sistema. Si la validación no es adecuada o no se realiza, los
+ errores se propagan al diseño y a la implementación del sistema final, desembocando en costosos mantenimientos futuros.
+ </p>
+ <h3>Cuatro puntos de suma importancia al validar</h3>
+ <div class="proceso-paso"><span class="paso-num">1</span><div class="paso-body"><h4>Validez de las necesidades</h4><p>Demostrar empíricamente que las funciones descritas resuelven verdaderamente el problema original del usuario. Dado que distintos usuarios tienen intereses diferentes, el conjunto final suele ser producto de una negociación.</p></div></div>
+ <div class="proceso-paso"><span class="paso-num">2</span><div class="paso-body"><h4>Coherencia</h4><p>Garantizar la consistencia lógica absoluta: que ninguna restricción o función contradiga a otra dentro del mismo documento.</p></div></div>
+ <div class="proceso-paso"><span class="paso-num">3</span><div class="paso-body"><h4>Exhaustividad</h4><p>Certificar que la especificación incluya todas las funciones, respuestas ante errores y restricciones ambientales previstas, sin omitir detalles operativos críticos.</p></div></div>
+ <div class="proceso-paso"><span class="paso-num">4</span><div class="paso-body"><h4>Realismo</h4><p>Confirmar que los requerimientos planteados sean efectivamente ejecutables dentro de las limitaciones de la tecnología, el presupuesto y los plazos de entrega (incluyendo la viabilidad de construir simuladores para medir el desempeño).</p></div></div>
+ <p>
+ Validar los requerimientos no se refiere a una única ocasión posterior a que se obtenga el documento de requerimientos:
+ se deben hacer <strong>revisiones periódicas</strong> durante el proceso previo a diseñar la definición de requerimientos.<sup class="cita-ref"><a href="#ref2" title="Sommerville (1992), pp. 97-98">2</a></sup>
+ </p>
+
+ <h3>¿Qué tipos de validación de requerimientos existen?</h3>
+ <p>La revisión de requerimientos es de suma importancia para realizar un trabajo adecuado. Existen dos tipos de revisión:<sup class="cita-ref"><a href="#ref2" title="Sommerville (1992), p. 97">2</a></sup></p>
+ <ul>
+ <li><strong>Revisión formal:</strong> la más importante de todas. Consiste en guiar al cliente de la mano en las implicaciones que conlleva cada requerimiento, es decir, qué contradicciones y ambigüedades existen en ellos. Posteriormente, es labor de los usuarios y del equipo señalar y corregir esas contradicciones y ambigüedades.</li>
+ <li><strong>Revisión informal:</strong> consta únicamente de una charla sobre los requerimientos entre cliente y desarrollador, sin profundizar en cada uno.</li>
+ </ul>
+
+ <h3>Diferencias principales entre verificación y validación</h3>
+ <p>Aunque en la práctica industrial ambos términos suelen agruparse, en la ingeniería de software representan enfoques analíticos distintos.<sup class="cita-ref"><a href="#ref2" title="Sommerville (1992), pp. 97-98">2</a></sup></p>
+ <div class="tabla-scroll">
+ <table>
+ <thead><tr><th></th><th>Validación</th><th>Verificación</th></tr></thead>
+ <tbody>
+ <tr><td><strong>Pregunta que responde</strong></td><td><em>«¿Estamos construyendo el sistema correcto?»</em></td><td><em>«¿Estamos construyendo el sistema correctamente?»</em></td></tr>
+ <tr><td><strong>Se centra en</strong></td><td>El usuario</td><td>El proceso</td></tr>
+ <tr><td><strong>Objetivo</strong></td><td>Comprobar que el producto final cumplirá con las expectativas comerciales y operativas del cliente en su entorno real.</td><td>Comprobar que los documentos y modelos cumplen de forma estricta con los estándares de notación, reglas de estructuración técnica y consistencia interna.</td></tr>
+ <tr><td><strong>Cómo se apoya</strong></td><td>Fuertemente en el <strong>prototipado</strong>: modelos ejecutables de las interfaces con los que los usuarios interactúan.</td><td>Revisiones formales, inspecciones manuales y herramientas automatizadas (sobre todo si los requerimientos se redactaron en lenguajes formales o PDL, como Ada/PDL).</td></tr>
+ </tbody>
+ </table>
+ </div>
+ </div>
+
+ <!-- ================= 5. CAMBIOS ================= -->
+ <div class="seccion-tema">
+ <h1 class="page-title" id="cambios" style="font-size:1.6rem;">Gestión de cambios (evolución de requerimientos)</h1>
+ <p>
+ El desarrollo de sistemas de software a gran escala es un proceso sumamente prolongado, lo que hace inevitable que los
+ requerimientos sufran alteraciones. Esta evolución ocurre debido a una comprensión progresivamente más profunda de las
+ necesidades del usuario, a fluctuaciones en el entorno de negocio o a la inminente evolución del hardware subyacente. Por
+ lo tanto, la gestión moderna dicta que se debe asumir una «incompletitud inicial» en las especificaciones. Para sobrevivir
+ a esta volatilidad, el documento debe seguir el principio de <strong>«diseño para la modificabilidad»</strong>.
+ </p>
+ <p>
+ Esto exige redactar el texto con un alto grado de modularidad, apoyado preferentemente en documentación electrónica para
+ consolidar automáticamente las solicitudes de cambio. Si un documento de requerimientos es rígido y difícil de actualizar,
+ los programadores tenderán a implementar las solicitudes de cambio directamente en el código fuente sin registrarlas. Este
+ fenómeno genera el <strong>peligro de desincronización</strong> entre el software real y su especificación teórica. Cuando el código y
+ el documento toman caminos separados, la arquitectura se corrompe a largo plazo, utilizando la especificación como herramienta de
+ mantenimiento y multiplicando severamente los costos operativos futuros.<sup class="cita-ref"><a href="#ref2" title="Sommerville (1992), pp. 59-61">2</a></sup>
+ </p>
+ <p>
+ Los requerimientos <strong>no son estáticos</strong>: durante el proyecto pueden surgir nuevas necesidades, cambios en el entorno o
+ correcciones. La gestión establece cómo se evalúan, aprueban e incorporan estos cambios.
+ </p>
+ <blockquote>
+ «La gestión de requerimientos es el proceso de controlar cambios y mantener la integridad del documento de especificación a lo
+ largo de todo el ciclo de vida. Cada cambio debe ser identificado, evaluado en su impacto, aprobado y documentado.»<sup class="cita-ref"><a href="#ref5" title="Wiegers y Beatty (2013), cap. 9: Gestión de cambios en los requerimientos, p. 245">5</a></sup>
+ <cite>— Wiegers y Beatty (2013), cap. 9, p. 245</cite>
+ </blockquote>
+ <div class="proceso-paso"><span class="paso-num">1</span><div class="paso-body"><h4>Identificar</h4><p>Registrar la solicitud de cambio.</p></div></div>
+ <div class="proceso-paso"><span class="paso-num">2</span><div class="paso-body"><h4>Evaluar el impacto</h4><p>Analizar cómo afecta al alcance, costo, plazo y a los demás requerimientos.</p></div></div>
+ <div class="proceso-paso"><span class="paso-num">3</span><div class="paso-body"><h4>Aprobar</h4><p>Decidir si el cambio se incorpora, se pospone o se rechaza.</p></div></div>
+ <div class="proceso-paso"><span class="paso-num">4</span><div class="paso-body"><h4>Documentar</h4><p>Actualizar la especificación para evitar la desincronización entre código y documento.</p></div></div>
+ </div>
+
+ <section class="referencias-pie">
+ <h3>Referencias</h3>
+ <ol>
+ <li id="ref1" value="1">Sommerville, I. (2019). <em>Ingeniería de software</em> (10.ª ed.). Pearson.</li>
+ <li id="ref2" value="2">Sommerville, I. (1992). <em>Software engineering</em> (4.ª ed.). Addison-Wesley.</li>
+ <li id="ref3" value="3">Sommerville, I. (2005). <em>Ingeniería del software</em> (7.ª ed.). Pearson Educación.</li>
+ <li id="ref4" value="4">Pressman, R. S. y Maxim, B. R. (2020). <em>Ingeniería de software: Un enfoque práctico</em> (9.ª ed.). McGraw-Hill Education.</li>
+ <li id="ref5" value="5">Wiegers, K. E. y Beatty, J. (2013). <em>Software requirements</em> (3.ª ed.). Microsoft Press.</li>
+ <li id="ref6" value="6">Robertson, S. y Robertson, J. (2012). <em>Mastering the requirements process: Getting requirements right</em> (3.ª ed.). Addison-Wesley Professional.</li>
+ <li id="ref7" value="7">Celi Párraga, R. J. et al. (2023). <em>Ingeniería del Software I</em>. Editorial Grupo AEA.</li>
+ </ol>
+ </section>
+
+</div>
+<script>
+$(document).ready(function(){
+ $('.accordion-btn').on('click',function(){
+ $(this).toggleClass('active').next('.accordion-content').slideToggle(350);
+ });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Cuestionario interactivo</title>
+ <link rel="stylesheet" href="media/css/ui.css">
+ <script src="media/js/jq.js"></script>
+ <script src="media/js/solo.js"></script>
+ <style>
+ html.solo { background: linear-gradient(rgba(0,0,0,.74),rgba(0,0,0,.74)), url("media/tema/tema1.jpg") no-repeat center / cover fixed; }
+ #wrapper section { width: auto; max-width: 945px; padding: 0 14px 40px; box-sizing: border-box; }
+ #wrapper section h1 { width: auto; }
+ .quiz-block p.pregunta-texto { text-align: left; }
+ .quiz-block .options li { line-height: 1.45; }
+ @media (max-width: 600px) { .quiz-block { padding: 18px; } #score-board { width: 92%; font-size: 1.2em; } .options li { font-size: 1rem !important; } }
+
+#score-board {
+ background: #2435a4;
+ border-radius: 10px;
+ padding: 10px 20px;
+ margin: 0 auto 20px auto;
+ width: 80%;
+ max-width: 600px;
+ text-align: center;
+ font-size: 1.5em;
+ font-weight: bold;
+ color: #fefae0;
+ box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+ }
+ .score-positivo { color: #aaffcc !important; }
+ .score-negativo { color: #ffaaaa !important; }
+
+ #quiz-container {
+ width: 90%;
+ max-width: 700px;
+ margin: 0 auto;
+ }
+ .quiz-block {
+ background: #0f0f14;
+ border: 2px solid #f6aa1c;
+ border-radius: 10px;
+ padding: 30px;
+ box-shadow: 0 10px 28px rgba(0,0,0,0.5);
+ }
+ .quiz-block .qnum {
+ font-size: 1rem;
+ color: #f6aa1c;
+ margin-bottom: 15px;
+ display: block;
+ font-weight: bold;
+ border-bottom: 1px solid rgba(246, 170, 28, 0.3);
+ padding-bottom: 10px;
+ }
+ .quiz-block p.pregunta-texto {
+ margin-bottom: 20px;
+ font-size: 1.2rem;
+ color: #fff;
+ width: 100%;
+ }
+ .options { list-style: none; padding: 0; margin: 0; }
+ .options li {
+ padding: 12px 18px;
+ border-radius: 6px;
+ border: 1px solid rgba(255,255,255,0.15);
+ margin-bottom: 10px;
+ cursor: pointer;
+ transition: all .2s;
+ color: #ddd;
+ font-size: 1.1rem;
+ background: rgba(255,255,255,0.02);
+ }
+ .options li:hover { background: rgba(246, 170, 28, 0.1); border-color: #f6aa1c; color: #fff; }
+ .options li.correct { background: rgba(114, 176, 29, 0.2); border-color: #72b01d; color: #fff; font-weight: bold; }
+ .options li.wrong { background: rgba(200,40,40,0.2); border-color: #c82828; color: #ffaaaa; }
+ .feedback { margin-top: 15px; font-size: 1.1rem; font-style: italic; display: none; text-align: center; width: 100%; }
+ .feedback.show { display: block; }
+ .donde {
+ margin-top: 12px; display: none; width: 100%;
+ font-size: 1rem; color: #ddd; text-align: left;
+ background: rgba(36,53,164,0.18); border: 1px solid rgba(36,53,164,0.6);
+ border-radius: 8px; padding: 10px 14px; line-height: 1.5;
+ }
+ .donde strong { color: #f6aa1c; }
+
+.botones-container { text-align: center; margin-top: 25px; }
+
+.btn-action {
+ display: inline-block;
+ margin: 10px;
+ padding: 12px 30px;
+ background: #f6aa1c;
+ color: #000;
+ border: none;
+ border-radius: 8px;
+ font-size: 1.1rem;
+ font-weight: bold;
+ cursor: pointer;
+ transition: background .25s, transform .1s;
+ font-family: 'Myr', sans-serif;
+ width: auto;
+ }
+ .btn-action:hover { background: #ffd700; transform: scale(1.05); }
+ .btn-action:active { transform: scale(0.95); }
+ .btn-secondary { background: #2435a4; color: #fff; }
+ .btn-secondary:hover { background: #3547c4; }
+ .btn-danger { background: #c82828; color: #fff; }
+ .btn-danger:hover { background: #e03030; }
+
+ #resultado {
+ text-align: center;
+ padding: 40px;
+ background: #0f0f14;
+ border: 2px solid #72b01d;
+ border-radius: 10px;
+ margin: 20px auto;
+ width: 90%;
+ max-width: 600px;
+ display: none;
+ }
+ #resultado h3 { color: #f6aa1c; font-size: 2.2rem; margin-bottom: 10px; width: 100%; }
+ #resultado p { font-size: 1.3rem; width: 100%; }
+ </style>
+</head>
+<body>
+<div id="wrapper" style="overflow-y: auto; padding-top: 20px;">
+
+ <section>
+ <h1 style="text-align: center; padding-top: 0;"><b>Cuestionario</b></h1>
+ <h2 style="text-align: center;"><v>Fundamentos para los requerimientos del software</v></h2>
+ <p style="text-align: center;">Cada intento presenta 10 preguntas al azar de un banco de 51. Acumula puntos respondiendo correctamente (+10 acierto, −5 error). Al contestar verás en qué parte del tutorial y de qué fuente sale la respuesta.</p>
+
+ <div id="score-board">
+ Puntos: <span id="score-value">0</span>
+ </div>
+
+ <div id="quiz-container">
+ </div>
+
+ <div class="botones-container">
+ <button id="btn-siguiente" class="btn-action" style="display:none;" onclick="siguientePregunta()">Siguiente pregunta ➔</button>
+ <br>
+ <button id="btn-reiniciar" class="btn-action btn-secondary" onclick="iniciarCuestionario()">↻ Reiniciar</button>
+ <button id="btn-finalizar" class="btn-action btn-danger" style="display:none;" onclick="verResultado()">Finalizar cuestionario</button>
+ </div>
+
+ <div id="resultado">
+ <h3>Resultado final</h3>
+ <p id="puntuacion-final"></p>
+ <p id="mensaje-resultado"></p>
+ <button class="btn-action" onclick="iniciarCuestionario()" style="margin-top: 20px;">Jugar de nuevo</button>
+ </div>
+ </section>
+
+</div>
+
+<script>
+
+// Preguntas: todas se responden con las fuentes del tutorial.
+// "donde" indica la ubicación exacta de la respuesta en el libro.
+
+const todasLasPreguntas = [
+  {"q": "¿Por qué la ingeniería de requerimientos es una fase crítica?", "opts": {"a": "Porque define la arquitectura interna y la estructura final de bases de datos del sistema.", "b": "Porque busca definir las funciones del sistema y las restricciones bajo las que operará; si falla, el producto puede ser de mala calidad y no resolver el problema del cliente.", "c": "Porque determina directamente el presupuesto económico y la contratación del personal de desarrollo.", "d": "Porque es la única fase del ciclo de vida donde se ejecutan pruebas de rendimiento en producción."}, "correct": "b", "donde": "Tutorial → Introducción (párrafos de apertura: la ingeniería de requerimientos como fase crítica y sus consecuencias)."},
+  {"q": "¿Cuáles son los tres grupos en que se clasifican los requerimientos y por qué un requerimiento de seguridad puede terminar generando requerimientos funcionales?", "opts": {"a": "Estáticos, dinámicos y temporales; porque la seguridad exige restricciones operativas puras sin código adicional.", "b": "De hardware, de software y de red; porque cualquier protocolo de cifrado bloquea las funciones principales.", "c": "Funcionales, no funcionales y del dominio; porque un requerimiento de seguridad, al detallarlo, genera requerimientos claramente funcionales como la autenticación de usuarios.", "d": "Obligatorios, opcionales y condicionales; porque la seguridad es una opción que el usuario final decide activar."}, "correct": "c", "donde": "Tutorial → Desarrollo → Clasificación → Requerimientos funcionales (P1). Sommerville (1992), pp. 56-57; Sommerville (2005), pp. 109 y 111."},
+  {"q": "Define un requerimiento funcional con tus palabras y explica qué riesgo tiene redactarlo de forma ambigua:", "opts": {"a": "Es una restricción de hardware; el riesgo es que el servidor colapse por sobrecarga de peticiones.", "b": "Es una regla legal externa; el riesgo es que la empresa reciba una multa gubernamental.", "c": "Es la velocidad de respuesta del software; el riesgo es que el usuario abandone la aplicación.", "d": "Es una declaración de un servicio que el sistema debe proporcionar; si se redacta de forma ambigua, el desarrollador puede cumplirlo a medias."}, "correct": "d", "donde": "Tutorial → Desarrollo → Requerimientos funcionales (P2). Sommerville (1992), pp. 56-57; Sommerville (2005), pp. 109 y 111."},
+  {"q": "¿Por qué el incumplimiento de un requerimiento no funcional puede ser más grave que el de uno funcional?", "opts": {"a": "Porque los requerimientos funcionales son opcionales para el cliente, mientras que los no funcionales son decorativos.", "b": "Porque un fallo no funcional (como una caída total de seguridad o rendimiento inaceptable) puede hacer que todo el sistema sea inutilizable, a pesar de tener las funciones correctas.", "c": "Porque los requerimientos funcionales siempre se pueden corregir automáticamente mediante parches del sistema operativo.", "d": "Porque los requerimientos no funcionales tienen un costo económico menor en el mercado actual."}, "correct": "b", "donde": "Tutorial → Desarrollo → Requerimientos no funcionales (P3). Sommerville (2005), pp. 109-111; Wiegers y Beatty (2013), p. 12."},
+  {"q": "Clasifica cada caso según su tipo de requerimiento no funcional: (a) El sistema debe programarse en Java, por política de la empresa.(b) El sistema debe cumplir la ley de protección de datos personales.(c) El sistema debe responder en menos de 2 segundos.", "opts": {"a": "(a) Externo, (b) Del producto, (c) Organizacional.", "b": "(a) Del producto, (b) Organizacional, (c) Externo.", "c": "(a) Organizacional, (b) Externo, (c) Del producto.", "d": "(a) Organizacional, (b) Del producto, (c) Externo."}, "correct": "c", "donde": "Tutorial → Desarrollo → Tipos de requerimientos no funcionales (P4, Fig. 6.3). Sommerville (2005), pp. 112-113."},
+  {"q": "¿Qué consecuencias trae la ambigüedad o fallas en la etapa de requerimientos?", "opts": {"a": "Producto de baja calidad que no resuelve el conflicto inicial; aumento de costos; problemas de mantenimiento futuro; retrasos en las fechas estipuladas.", "b": "Reducción inmediata en los costos de producción y entrega anticipada del software al cliente.", "c": "Mejora significativa en la legibilidad del código fuente y menor uso de memoria RAM.", "d": "Aumento en la satisfacción del cliente y simplificación de las pruebas unitarias."}, "correct": "a", "donde": "Tutorial → Introducción (párrafos de apertura: la ingeniería de requerimientos como fase crítica y sus consecuencias)."},
+  {"q": "Según Sommerville (2019), ¿qué es un requerimiento?", "opts": {"a": "Un manual de usuario redactado exclusivamente para gerentes de proyectos.", "b": "Una declaración de lo que el sistema debe hacer o una propiedad que debe poseer; puede ser funcional o no funcional.", "c": "Un diagrama de clases orientado a objetos en la fase de diseño técnico.", "d": "Una estimación de costos y tiempos de entrega elaborada por el equipo financiero."}, "correct": "b", "donde": "Tutorial → Introducción → ¿Qué es un requerimiento? Sommerville (2019), cap. 4, sección 4.1, p. 95."},
+  {"q": "¿En cuántas categorías jerárquicas se dividen los requerimientos según el nivel de audiencia?", "opts": {"a": "Dos categorías: nivel técnico y nivel administrativo.", "b": "Cuatro categorías: nivel operativo, táctico, estratégico y gerencial.", "c": "Tres categorías: nivel usuario, nivel contractual y nivel de diseño.", "d": "Cinco categorías: nivel de entrada, proceso, salida, control y retroalimentación."}, "correct": "c", "donde": "Tutorial → Introducción → Niveles de audiencia. Sommerville (2019), cap. 4, sección 4.1, p. 95; Sommerville (1992)."},
+  {"q": "¿Qué describe el nivel de requerimientos de usuario?", "opts": {"a": "Instrucciones detalladas de código fuente escritas en lenguaje de programación avanzado.", "b": "Declaraciones en lenguaje estructurado enfocadas en los servicios que el sistema ofrecerá al cliente.", "c": "Especificaciones de voltajes y componentes físicos de los servidores informáticos.", "d": "Las cláusulas de penalización económica por retrasos en la entrega del contrato."}, "correct": "b", "donde": "Tutorial → Introducción → Niveles de audiencia. Sommerville (2019), cap. 4, sección 4.1, p. 95; Sommerville (1992)."},
+  {"q": "¿A quién va dirigida la especificación de requerimientos de nivel contractual?", "opts": {"a": "Al público general y usuarios inexpertos de la aplicación móvil.", "b": "Al personal técnico de ambas partes; es un documento estructurado y preciso donde se estipula exactamente lo que se implementará.", "c": "Únicamente al departamento de marketing y ventas de la empresa compradora.", "d": "A los auditores externos encargados de revisar los estados financieros anuales."}, "correct": "b", "donde": "Tutorial → Introducción → Niveles de audiencia. Sommerville (2019), cap. 4, sección 4.1, p. 95; Sommerville (1992)."},
+  {"q": "¿Cuál es el propósito de la especificación de software de nivel de diseño?", "opts": {"a": "Servir de guía a arquitectos y programadores para la implementación interna del sistema.", "b": "Establecer las normativas legales vigentes del país donde opera la empresa.", "c": "Definir los precios de venta y los métodos de pago aceptados por el cliente.", "d": "Capacitar a los usuarios finales en el uso cotidiano de la interfaz gráfica."}, "correct": "a", "donde": "Tutorial → Introducción → Niveles de audiencia. Sommerville (2019), cap. 4, sección 4.1, p. 95; Sommerville (1992)."},
+  {"q": "Si el rendimiento es un requerimiento crítico, ¿por qué se prefieren componentes grandes?", "opts": {"a": "Porque facilitan la distribución del software en millones de dispositivos móviles pequeños.", "b": "Porque así se reducen las comunicaciones entre componentes.", "c": "Porque consumen menos energía eléctrica en los centros de datos.", "d": "Porque permiten utilizar lenguajes de programación obsoletos con mayor facilidad."}, "correct": "b", "donde": "Tutorial → Desarrollo → Rendimiento (P6). Celi Párraga et al. (2023), pp. 41 y 68."},
+  {"q": "¿Qué es la documentación de requerimientos?", "opts": {"a": "Una guía informal de apuntes que los desarrolladores descartan al terminar la primera semana.", "b": "Es el documento técnico y formal que sirve como base del contrato entre comprador y desarrollador; debe ser comprensible para ambos.", "c": "Un informe financiero que detalla los salarios de los ingenieros de software.", "d": "Un folleto publicitario destinado a promocionar el software en redes sociales."}, "correct": "b", "donde": "Tutorial → Desarrollo → Documentación de requerimientos. Sommerville (1992), pp. 51-53."},
+  {"q": "¿Qué condiciones deben cumplir los requerimientos dentro del documento de especificación?", "opts": {"a": "Ser extensos, complejos y redactados en código binario para proteger la propiedad intelectual.", "b": "Ser consistentes y completos; todas las funciones deben estar especificadas sin conflictos de incompatibilidad entre ellas.", "c": "Cambiar constantemente de acuerdo al estado de ánimo del equipo de diseño.", "d": "Omitir los criterios de aceptación para dar libertad creativa total al programador."}, "correct": "b", "donde": "Tutorial → Desarrollo → Documentación de requerimientos. Sommerville (1992), pp. 51-53."},
+  {"q": "¿Qué tres elementos debe contener todo requerimiento para estar completo?", "opts": {"a": "1) El autor del código; 2) El nombre del servidor; 3) El costo de la licencia.", "b": "1) El lenguaje de programación; 2) La versión del sistema operativo; 3) El nombre del cliente.", "c": "1) El comportamiento esperado; 2) Su justificación técnica o de negocio; 3) Sus criterios de aceptación cuantificables.", "d": "1) La fecha de inicio; 2) La fecha de entrega; 3) Las horas extras trabajadas."}, "correct": "c", "donde": "Tutorial → Desarrollo → Reglas de Heininger. Sommerville (1992), pp. 51-53."},
+  {"q": "¿Cuál es el primer principio de Heninger para el documento de requerimientos?", "opts": {"a": "Especificar únicamente el comportamiento externo del sistema.", "b": "Detallar paso a paso las líneas de código interno de cada función.", "c": "Utilizar animaciones gráficas para explicar la interfaz de usuario.", "d": "Ocultar los fallos del sistema ante los ojos del cliente."}, "correct": "a", "donde": "Tutorial → Desarrollo → Reglas de Heininger. Sommerville (1992), pp. 51-53."},
+  {"q": "¿Qué establece el segundo principio de Heninger?", "opts": {"a": "Permitir que cualquier usuario modifique el código fuente sin restricciones.", "b": "Establecer restricciones claras sobre la implementación.", "c": "Diseñar interfaces visuales complejas y difíciles de aprender.", "d": "Eliminar toda documentación escrita para ahorrar tiempo en el desarrollo."}, "correct": "b", "donde": "Tutorial → Desarrollo → Reglas de Heininger. Sommerville (1992), pp. 51-53."},
+  {"q": "Según Heninger, ¿qué cualidad debe tener el documento para facilitar modificaciones?", "opts": {"a": "Ser extenso y contener toda la información en un solo párrafo masivo.", "b": "Estar escrito en un lenguaje secreto que solo los fundadores de la empresa entiendan.", "c": "Ser fácil de cambiar mediante diseño modular.", "d": "Depender fuertemente de tecnologías propietarias que no se puedan actualizar."}, "correct": "c", "donde": "Tutorial → Desarrollo → Reglas de Heininger. Sommerville (1992), pp. 51-53."},
+  {"q": "¿Qué función cumple el documento según el cuarto principio de Heninger?", "opts": {"a": "Servir como herramienta base para el mantenimiento futuro.", "b": "Funcionar como un contrato legal para demandar penalmente al cliente en caso de retraso.", "c": "Reemplazar por completo la necesidad de realizar pruebas de software.", "d": "Servir como catálogo de ventas para comercializar licencias adicionales."}, "correct": "a", "donde": "Tutorial → Desarrollo → Reglas de Heininger. Sommerville (1992), pp. 51-53."},
+  {"q": "¿Qué aspecto debe contemplar el documento respecto a la vida del sistema?", "opts": {"a": "La fecha exacta en que la empresa quebrará financieramente.", "b": "La vida útil del sistema y la evolución del hardware.", "c": "La cantidad de empleados que serán despedidos tras el lanzamiento.", "d": "El clima de la región donde se instalarán los servidores principales."}, "correct": "b", "donde": "Tutorial → Desarrollo → Reglas de Heininger. Sommerville (1992), pp. 51-53."},
+  {"q": "¿Qué debe definir el documento ante eventos no deseados según Heninger?", "opts": {"a": "Las disculpas públicas que la empresa debe ofrecer en televisión.", "b": "Los nombres de los responsables directos del error informático.", "c": "Las respuestas aceptables ante fallos o eventos no deseados.", "d": "La eliminación permanente del sistema operativo afectado."}, "correct": "c", "donde": "Tutorial → Desarrollo → Reglas de Heininger. Sommerville (1992), pp. 51-53."},
+  {"q": "¿Cómo se redactan los requerimientos del usuario?", "opts": {"a": "En lenguaje natural, sin detalles técnicos, describiendo servicios y restricciones comprensibles para usuarios y gerencia.", "b": "Mediante diagramas matriciales complejos de bases de datos relacionales.", "c": "Utilizando exclusivamente código de lenguaje ensamblador o C++.", "d": "Mediante ecuaciones matemáticas de cálculo multivariable y álgebra lineal."}, "correct": "a", "donde": "Tutorial → Desarrollo → Requerimientos de usuario. Sommerville (2005), pp. 109-110."},
+  {"q": "¿Qué problemas conlleva depender exclusivamente de lenguaje natural para los requerimientos?", "opts": {"a": "Aumento automático de la velocidad de procesamiento del microprocesador.", "b": "Falta de claridad y ambigüedad; confusión de conceptos; saturación o conjunción de varios requerimientos en uno solo.", "c": "Incompatibilidad absoluta con cualquier sistema operativo moderno.", "d": "Reducción del tamaño del archivo de documentación a cero bytes."}, "correct": "b", "donde": "Tutorial → Desarrollo → Requerimientos de usuario. Sommerville (2005), pp. 109-110."},
+  {"q": "¿Cómo se mitigan los problemas del lenguaje natural en la redacción?", "opts": {"a": "Imponer estructura estandarizada, separar concepto de detalles técnicos y añadir justificación a cada requerimiento.", "b": "Escribiendo los textos en un tono poético y metafórico para inspirar al equipo.", "c": "Traduciendo los requerimientos a idiomas antiguos que nadie hable.", "d": "Eliminando las reglas de ortografía y gramática en los reportes técnicos."}, "correct": "a", "donde": "Tutorial → Desarrollo → Requerimientos de usuario. Sommerville (2005), pp. 109-110."},
+  {"q": "¿Qué caracteriza a los requerimientos del sistema?", "opts": {"a": "Son vagos, subjetivos y dependen de la interpretación personal del cliente.", "b": "Son detallados, precisos y formalizados; sirven como contrato y base para el diseño; describen comportamiento externo e interfaces.", "c": "Son opcionales y solo se implementan si sobra tiempo al finalizar el proyecto.", "d": "Describen exclusivamente los sentimientos y expectativas psicológicas del usuario final."}, "correct": "b", "donde": "Tutorial → Desarrollo → Requerimientos del sistema (especificación detallada)."},
+  {"q": "¿Qué NO deben indicar los requerimientos del sistema?", "opts": {"a": "Cómo diseñar o implementar internamente el software.", "b": "Qué entradas recibe y qué salidas produce el sistema informático.", "c": "Las interfaces de comunicación con otros sistemas externos.", "d": "Los límites operativos bajo los cuales debe funcionar la aplicación."}, "correct": "a", "donde": "Tutorial → Desarrollo → Requerimientos del sistema (especificación detallada)."},
+  {"q": "¿De dónde provienen los requerimientos de dominio?", "opts": {"a": "De los caprichos temporales del director general de la compañía.", "b": "Del ámbito de aplicación: normativas, leyes, reglas del negocio; independientemente de lo que pidan los usuarios.", "c": "De la imaginación de los diseñadores gráficos del equipo creativo.", "d": "Del rendimiento físico de la tarjeta gráfica y la memoria RAM instalada."}, "correct": "b", "donde": "Tutorial → Desarrollo → Requerimientos del dominio. Sommerville (2005), pp. 112-113."},
+  {"q": "¿Qué ocurre si se omiten requerimientos de dominio?", "opts": {"a": "El sistema funcionará con total normalidad y superará las expectativas del mercado.", "b": "Su omisión suele invalidar por completo la utilidad del sistema.", "c": "El software requerirá menos espacio de almacenamiento en el disco duro.", "d": "Los costos de mantenimiento disminuirán drásticamente durante el primer año."}, "correct": "b", "donde": "Tutorial → Desarrollo → Requerimientos del dominio. Sommerville (2005), pp. 112-113."},
+  {"q": "¿Qué describen los requerimientos funcionales?", "opts": {"a": "Qué debe hacer el sistema: servicios, respuestas a entradas y comportamientos en situaciones específicas; también pueden indicar qué NO debe hacer.", "b": "El color, la textura y la tipografía exacta de los botones de la interfaz visual.", "c": "La marca y el modelo de los computadores donde correrá la aplicación.", "d": "Las políticas de vacaciones y sueldos de los ingenieros desarrolladores."}, "correct": "a", "donde": "Tutorial → Desarrollo → Requerimientos funcionales. Sommerville (1992), pp. 56-57; Sommerville (2005), pp. 109 y 111; Pressman y Maxim (2020), p. 194."},
+  {"q": "¿Qué significa que un requerimiento funcional sea \"completo\"?", "opts": {"a": "Que ocupe al menos quinientas páginas de texto descriptivo.", "b": "Que se especifiquen cada una de las necesidades requeridas por el usuario del sistema.", "c": "Que esté redactado en tres idiomas diferentes simultáneamente.", "d": "Que no pueda ser modificado jamás bajo ninguna circunstancia."}, "correct": "b", "donde": "Tutorial → Desarrollo → Requerimientos funcionales. Sommerville (1992), pp. 56-57; Sommerville (2005), pp. 109 y 111; Pressman y Maxim (2020), p. 194."},
+  {"q": "¿Qué significa que un requerimiento sea \"consistente\"?", "opts": {"a": "Que se repita exactamente igual en diez capítulos distintos del manual.", "b": "Que no debe ser ambiguo ni contradictorio con otros.", "c": "Que cambie de valor dependiendo de la hora del día en que se consulte.", "d": "Que esté escrito con un formato de letra en negrita y subrayado."}, "correct": "b", "donde": "Tutorial → Desarrollo → Requerimientos funcionales. Sommerville (1992), pp. 56-57; Sommerville (2005), pp. 109 y 111; Pressman y Maxim (2020), p. 194."},
+  {"q": "¿Por qué un requerimiento de seguridad puede generar requerimientos funcionales?", "opts": {"a": "Porque la seguridad elimina la necesidad de tener funciones activas en el software.", "b": "Porque al detallar la necesidad de seguridad aparecen funciones concretas, como la autenticación de usuarios.", "c": "Porque bloquea automáticamente el teclado y el ratón del equipo infectado.", "d": "Porque incrementa el voltaje eléctrico que alimenta al procesador central."}, "correct": "b", "donde": "Tutorial → Desarrollo → Requerimientos funcionales. Sommerville (1992), pp. 56-57; Sommerville (2005), pp. 109 y 111; Pressman y Maxim (2020), p. 194."},
+  {"q": "¿Qué son los requerimientos no funcionales?", "opts": {"a": "Funciones ocultas que el usuario nunca llega a utilizar ni conocer.", "b": "Restricciones sobre los servicios o funciones del sistema; definen propiedades de calidad y se aplican al sistema completo.", "c": "Errores de programación que los desarrolladores deben corregir antes de la entrega.", "d": "Tareas administrativas que no tienen relación con el software final."}, "correct": "b", "donde": "Tutorial → Desarrollo → Requerimientos no funcionales. Sommerville (2005), pp. 109-111; Wiegers y Beatty (2013), p. 12."},
+  {"q": "¿En qué tres grupos se clasifican los requerimientos no funcionales?", "opts": {"a": "Del producto, organizacionales y externos.", "b": "Internos, externos y gubernamentales.", "c": "Simples, complejos y avanzados.", "d": "Principales, secundarios y de respaldo."}, "correct": "a", "donde": "Tutorial → Desarrollo → Tipos de requerimientos no funcionales (Fig. 6.3). Sommerville (2005), pp. 109-113."},
+  {"q": "¿Qué característica debe tener todo requerimiento no funcional para ser válido?", "opts": {"a": "Ser una descripción poética y emocional sobre la experiencia del usuario.", "b": "Ser comprobable y cuantificable mediante métricas exactas; evitar descripciones subjetivas.", "c": "Estar redactado en un formato de audio en lugar de texto escrito.", "d": "Ser lo suficientemente ambiguo para interpretarse de múltiples maneras."}, "correct": "b", "donde": "Tutorial → Desarrollo → Requerimientos no funcionales. Sommerville (2005), pp. 109-111; Wiegers y Beatty (2013), p. 12."},
+  {"q": "Pon un ejemplo de requerimiento no funcional del producto:", "opts": {"a": "El sistema debe utilizar obligatoriamente el lenguaje de programación C#.", "b": "El sistema debe cumplir con la ley federal de protección al consumidor.", "c": "Tiempo de respuesta, fiabilidad, usabilidad, portabilidad o eficiencia.", "d": "El equipo de desarrollo debe usar la metodología ágil Scrum."}, "correct": "c", "donde": "Tutorial → Desarrollo → Tipos de requerimientos no funcionales (P4, Fig. 6.3). Sommerville (2005), pp. 112-113."},
+  {"q": "Pon un ejemplo de requerimiento no funcional organizacional:", "opts": {"a": "El tiempo de carga de la página principal no debe superar un segundo.", "b": "Lenguaje de programación a usar, estándares de codificación o metodología de entrega.", "c": "El software debe ser compatible con la normativa internacional ISO de accesibilidad.", "d": "La aplicación debe estar disponible el 99.9% del tiempo en la nube."}, "correct": "b", "donde": "Tutorial → Desarrollo → Tipos de requerimientos no funcionales (P4, Fig. 6.3). Sommerville (2005), pp. 112-113."},
+  {"q": "Pon un ejemplo de requerimiento no funcional externo:", "opts": {"a": "Cumplir leyes de protección de datos, normativas de seguridad, interoperabilidad o requisitos éticos.", "b": "La empresa desarrolladora debe entregar el proyecto utilizando servidores propios.", "c": "El uso de memoria RAM de la aplicación no debe rebasar los 512 megabytes.", "d": "El diseño de la interfaz debe seguir la paleta de colores corporativa."}, "correct": "a", "donde": "Tutorial → Desarrollo → Tipos de requerimientos no funcionales (P4, Fig. 6.3). Sommerville (2005), pp. 112-113."},
+  {"q": "¿Cuáles son las cualidades de un requerimiento bien escrito?", "opts": {"a": "Largo, confuso, dinámico, costoso, privado, genérico e informal.", "b": "Específico, claro, completo, consistente, verificable, trazable y necesario.", "c": "Subjetivo, flexible, artístico, indocumentado, ambiguo y redundante.", "d": "Rápido, económico, masivo, automático, decorativo y temporal."}, "correct": "b", "donde": "Tutorial → Desarrollo → Cualidades de un requerimiento bien escrito. Robertson y Robertson (2012), cap. 5, p. 112."},
+  {"q": "¿Qué significa que un requerimiento sea \"verificable\"?", "opts": {"a": "Que se puede comprobar mediante pruebas, mediciones o inspección si se cumple; si no se puede probar, no es un buen requerimiento.", "b": "Que ha sido firmado y notariado por un abogado especialista en propiedad intelectual.", "c": "Que fue aprobado por votación unánime de los usuarios en redes sociales.", "d": "Que cuenta con un certificado de garantía válido por un año calendario."}, "correct": "a", "donde": "Tutorial → Desarrollo → Cualidades de un requerimiento bien escrito. Robertson y Robertson (2012), cap. 5, p. 112."},
+  {"q": "¿Qué significa que un requerimiento esté \"priorizado\"?", "opts": {"a": "Que se le asigna un color llamativo para que destaque visualmente en el documento.", "b": "Que se establece su grado de importancia: esencial, condicional u opcional.", "c": "Que debe programarse obligatoriamente antes de cualquier otra línea de código.", "d": "Que tiene un costo monetario superior al resto de las funciones."}, "correct": "b", "donde": "Tutorial → Desarrollo → Cualidades de un requerimiento bien escrito. Robertson y Robertson (2012), cap. 5, p. 112."},
+  {"q": "¿Qué significa que un requerimiento sea \"trazable\"?", "opts": {"a": "Que se puede dibujar fácilmente utilizando un compás y una regla milimétrica.", "b": "Que se puede identificar su origen y seguir su evolución a lo largo del proyecto.", "c": "Que deja un registro en el disco duro cada vez que el usuario lo lee.", "d": "Que puede ser rastreado mediante una antena GPS instalada en el servidor."}, "correct": "b", "donde": "Tutorial → Desarrollo → Cualidades de un requerimiento bien escrito. Robertson y Robertson (2012), cap. 5, p. 112."},
+  {"q": "¿Cuáles son las etapas del proceso de ingeniería de requerimientos?", "opts": {"a": "Planificación, diseño gráfico, codificación, marketing y venta.", "b": "Compra, instalación, configuración, actualización y eliminación.", "c": "Elicitación, análisis y negociación, especificación, validación y gestión de cambios.", "d": "Depuración, pruebas de estrés, compilación, despliegue y soporte técnico."}, "correct": "c", "donde": "Tutorial → Desarrollo → Proceso de obtención. Sommerville (2019), cap. 4, sección 4.2, p. 99."},
+  {"q": "¿En qué consiste la etapa de elicitación?", "opts": {"a": "Recopilar información mediante entrevistas, talleres, observación, análisis de documentos, prototipos y cuestionarios para descubrir las necesidades.", "b": "Eliminar los requerimientos innecesarios mediante algoritmos de inteligencia artificial.", "c": "Escribir las líneas finales de código fuente en el entorno de desarrollo.", "d": "Presentar el producto finalizado ante los inversionistas de la empresa."}, "correct": "a", "donde": "Tutorial → Desarrollo → Elicitación. Sommerville (2019), cap. 4, sección 4.3, p. 102."},
+  {"q": "¿Por qué se recomienda combinar varias técnicas de elicitación?", "opts": {"a": "Para duplicar innecesariamente el número de páginas del reporte final.", "b": "Porque cada una aporta una perspectiva distinta y reduce el riesgo de pasar por alto necesidades importantes.", "c": "Para cumplir con una cuota obligatoria de reuniones impuestas por la gerencia.", "d": "Porque una sola técnica encarece de forma extrema el presupuesto del proyecto."}, "correct": "b", "donde": "Tutorial → Desarrollo → Elicitación (técnicas). Wiegers y Beatty (2013), cap. 3, p. 47."},
+  {"q": "¿Qué se hace en la etapa de análisis y negociación?", "opts": {"a": "Examinar la información, detectar conflictos, evaluar viabilidad técnica-económica, clasificar y refinar las necesidades.", "b": "Contratar al personal de limpieza y mantenimiento de las oficinas de desarrollo.", "c": "Imprimir los contratos definitivos para proceder a la firma legal con el cliente.", "d": "Calcular los impuestos anuales que la empresa deberá pagar al gobierno."}, "correct": "a", "donde": "Tutorial → Desarrollo → Análisis y negociación. Pressman y Maxim (2020), p. 202; Robertson y Robertson (2012), p. 131."},
+  {"q": "¿Qué es la especificación?", "opts": {"a": "Redactar formalmente los requerimientos en un documento claro y estructurado, combinando texto, diagramas y modelos.", "b": "Probar el rendimiento físico de los componentes electrónicos bajo temperaturas extremas.", "c": "Realizar una encuesta de satisfacción a los clientes después de vender el software.", "d": "Diseñar el logotipo y la identidad visual de la aplicación comercial."}, "correct": "a", "donde": "Tutorial → Desarrollo → Especificación. Sommerville (2019), cap. 4, sección 4.4, p. 108."},
+  {"q": "¿Qué responde la validación frente a la verificación?", "opts": {"a": "Validación: ¿cuánto cuesta el sistema?; Verificación: ¿cuándo se entrega el sistema?", "b": "Validación: ¿qué tan rápido corre el software?; Verificación: ¿cuánta memoria consume?", "c": "Validación: ¿construimos el sistema correcto?; Verificación: ¿lo construimos correctamente?", "d": "Validación: ¿quién programó el módulo?; Verificación: ¿dónde está guardado el código?"}, "correct": "c", "donde": "Tutorial → Desarrollo → Validación y verificación. Sommerville (1992), pp. 97-98; Pressman y Maxim (2020), p. 212."},
+  {"q": "¿Cuáles son los cuatro aspectos clave de la validación de requerimientos?", "opts": {"a": "Validez de las necesidades, coherencia, exhaustividad y realismo.", "b": "Velocidad, almacenamiento, conectividad y seguridad de la red.", "c": "Costo, tiempo, personal y recursos materiales disponibles.", "d": "Estética, simplicidad, modernidad y popularidad comercial."}, "correct": "a", "donde": "Tutorial → Desarrollo → Validación (cuatro puntos). Sommerville (1992), pp. 97-98."},
+  {"q": "¿Qué diferencia hay entre revisión formal e informal?", "opts": {"a": "La formal usa traje y corbata; la informal se realiza en ropa casual.", "b": "La formal se hace en papel impreso; la informal se hace en formato digital.", "c": "La formal guía al cliente señalando cada ambigüedad para corregirla; la informal es solo una charla sin profundizar.", "d": "La formal tiene validez legal ante un tribunal; la informal no tiene ninguna utilidad práctica."}, "correct": "c", "donde": "Tutorial → Desarrollo → Tipos de validación. Sommerville (1992), p. 97."},
+  {"q": "¿Por qué es necesaria la gestión de cambios?", "opts": {"a": "Porque los requerimientos no son estáticos; el documento debe mantenerse actualizado y controlar las modificaciones para evitar desincronización entre código y especificación.", "b": "Porque los desarrolladores se aburren si trabajan en el mismo proyecto por más de una semana.", "c": "Para cobrar multas adicionales al cliente cada vez que cambie de opinión.", "d": "Para garantizar que el software jamás reciba actualizaciones de seguridad"}, "correct": "a", "donde": "Tutorial → Desarrollo → Gestión de cambios. Sommerville (1992), pp. 59-61; Wiegers y Beatty (2013), p. 245."}
+];
+
+
+let preguntasSeleccionadas = [];
+let indiceActual = 0;
+let score = 0;
+let preguntasRespondidas = 0;
+const NUM_PREGUNTAS = Math.min(10, todasLasPreguntas.length);
+
+function mezclarArray(array) {
+ let arr = [...array];
+ let currentIndex = arr.length, randomIndex;
+ while (currentIndex !== 0) {
+ randomIndex = Math.floor(Math.random() * currentIndex);
+ currentIndex--;
+ [arr[currentIndex], arr[randomIndex]] = [arr[randomIndex], arr[currentIndex]];
+ }
+ return arr;
+}
+
+
+function barajarOpcionesDePregunta(pregunta) {
+ let opcionesArray = [
+ { texto: pregunta.opts.a },
+ { texto: pregunta.opts.b },
+ { texto: pregunta.opts.c },
+ { texto: pregunta.opts.d }
+ ];
+ let textoCorrecto = pregunta.opts[pregunta.correct];
+ opcionesArray = mezclarArray(opcionesArray);
+
+ let nuevasOpciones = {};
+ let nuevaCorrecta = '';
+ const letras = ['a', 'b', 'c', 'd'];
+ opcionesArray.forEach((opc, index) => {
+ nuevasOpciones[letras[index]] = opc.texto;
+ if (opc.texto === textoCorrecto) {
+ nuevaCorrecta = letras[index];
+ }
+ });
+
+ return { q: pregunta.q, opts: nuevasOpciones, correct: nuevaCorrecta, donde: pregunta.donde };
+}
+
+function iniciarCuestionario() {
+ score = 0;
+ preguntasRespondidas = 0;
+ indiceActual = 0;
+ actualizarMarcador();
+
+ $('#resultado').hide();
+ $('#btn-finalizar').hide();
+ $('#btn-siguiente').hide();
+ $('#quiz-container').show();
+
+ let seleccionAleatoria = mezclarArray(todasLasPreguntas).slice(0, NUM_PREGUNTAS);
+ preguntasSeleccionadas = seleccionAleatoria.map(p => barajarOpcionesDePregunta(p));
+
+ mostrarPregunta(indiceActual);
+}
+
+function actualizarMarcador() {
+ const $span = $('#score-value');
+ $span.text(score);
+ if (score > 0) {
+ $span.removeClass('score-negativo').addClass('score-positivo');
+ } else if (score < 0) {
+ $span.removeClass('score-positivo').addClass('score-negativo');
+ } else {
+ $span.removeClass('score-positivo score-negativo');
+ }
+}
+
+function mostrarPregunta(index) {
+ const preg = preguntasSeleccionadas[index];
+ const container = $('#quiz-container');
+
+ $('#btn-siguiente').hide();
+
+ let html = `
+ <div class="quiz-block" data-correct="${preg.correct}">
+ <span class="qnum">Pregunta ${index + 1} de ${NUM_PREGUNTAS}</span>
+ <p class="pregunta-texto">${preg.q}</p>
+ <ul class="options">
+ <li data-val="a">A) ${preg.opts.a}</li>
+ <li data-val="b">B) ${preg.opts.b}</li>
+ <li data-val="c">C) ${preg.opts.c}</li>
+ <li data-val="d">D) ${preg.opts.d}</li>
+ </ul>
+ <p class="feedback"></p>
+ <p class="donde"><strong>📖 Dónde está la respuesta:</strong> ${preg.donde}</p>
+ </div>
+ `;
+ container.html(html);
+
+ $('.options li').on('click', function(){
+ let $block = $(this).closest('.quiz-block');
+
+ if($block.hasClass('respondido')) return;
+ $block.addClass('respondido');
+
+ preguntasRespondidas++;
+
+ if(preguntasRespondidas > 0) {
+ $('#btn-finalizar').fadeIn();
+ }
+
+ let correct = $block.data('correct');
+ let chosen = $(this).data('val');
+
+ if(chosen === correct) {
+ $(this).addClass('correct');
+ score += 10;
+ $block.find('.feedback').css('color', '#aaffcc').text('✓ ¡Excelente! +10 puntos').slideDown();
+ } else {
+ $(this).addClass('wrong');
+ $block.find('li[data-val="'+correct+'"]').addClass('correct');
+ score -= 5;
+ $block.find('.feedback').css('color', '#ffaaaa').text('✗ Incorrecto. −5 puntos. La correcta era la ' + correct.toUpperCase() + '.').slideDown();
+ }
+ $block.find('.donde').slideDown();
+
+ actualizarMarcador();
+
+ if (indiceActual < preguntasSeleccionadas.length - 1) {
+ $('#btn-siguiente').fadeIn();
+ } else {
+ setTimeout(verResultado, 3500);
+ }
+ });
+}
+
+function siguientePregunta() {
+ indiceActual++;
+ if (indiceActual < preguntasSeleccionadas.length) {
+ mostrarPregunta(indiceActual);
+ }
+}
+
+function verResultado() {
+ $('#quiz-container').hide();
+ $('#btn-siguiente').hide();
+ $('#btn-finalizar').hide();
+
+ let puntajeMaximo = preguntasRespondidas * 10;
+
+ $('#puntuacion-final').html(`Obtuviste <b>${score} puntos</b> de un máximo posible de ${puntajeMaximo}.`);
+
+ let msg = score > (puntajeMaximo * 0.7) ? '¡Excelente trabajo! Tienes dominado el tema.' :
+ score > 0 ? 'Bien hecho, aunque puedes mejorar repasando el Desarrollo.' :
+ 'Repasa el Desarrollo y vuelve a intentarlo.';
+
+ $('#mensaje-resultado').text(`Respondiste ${preguntasRespondidas} preguntas. ${msg}`);
+ $('#resultado').fadeIn();
+}
+
+$(document).ready(function(){
+ iniciarCuestionario();
+});
+</script>
+</body>
+</html>

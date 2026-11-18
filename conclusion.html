@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Conclusión</title>
+ <link rel="stylesheet" href="page.css">
+ <script src="media/js/jq.js"></script>
+ <script src="media/js/solo.js"></script>
+</head>
+<body>
+<div class="wrap">
+
+ <header class="page-header" style="--hero:url('media/tema/tema9.jpg')">
+ <span class="page-num">Cierre del tutorial</span>
+ <h1 class="page-title">Conclusión</h1>
+ <p class="page-subtitle">Fundamentos para los requerimientos del software · Requerimientos Básicos del Sistema</p>
+ </header>
+
+ <p class="lead">
+ Los requerimientos son la base de todo proyecto de software: definen <strong style="color:#D90;">qué debe hacer el sistema y bajo qué
+ restricciones operará</strong>. Una ingeniería de requerimientos descuidada produce software de baja calidad, costos mayores,
+ mantenimiento difícil y retrasos; una bien hecha reduce errores desde el principio.<sup class="cita-ref"><a href="#ref1" title="Sommerville (2019), cap. 4, sección 4.1, p. 95">1</a></sup>
+ </p>
+
+ <h2>Puntos clave aprendidos</h2>
+ <div class="card-grid">
+ <div class="card"><span class="card-icon">🧱</span><h4>Tres niveles de audiencia</h4>
+ <p>Usuario, contractual (SRS) y diseño: cada nivel se escribe para un lector distinto.</p></div>
+ <div class="card"><span class="card-icon">⚙️</span><h4>Funcionales y no funcionales</h4>
+ <p>Los funcionales dicen <em>qué hace</em> el sistema; los no funcionales, <em>cómo opera</em>. Estos últimos deben ser medibles.</p></div>
+ <div class="card"><span class="card-icon">📐</span><h4>Reglas de Heininger</h4>
+ <p>Solo comportamiento externo, restricciones claras, fácil de cambiar, apoyo al mantenimiento, vida útil y respuesta a fallos.</p></div>
+ <div class="card"><span class="card-icon">✅</span><h4>Cualidades de un buen requerimiento</h4>
+ <p>Específico, claro, completo, consistente, verificable, priorizado y trazable.</p></div>
+ <div class="card"><span class="card-icon">🔄</span><h4>Un ciclo de cinco etapas</h4>
+ <p>Elicitación, análisis y negociación, especificación, validación y gestión de cambios.</p></div>
+ <div class="card"><span class="card-icon">🏗️</span><h4>Requisitos críticos</h4>
+ <p>Seguridad → capas; rendimiento → componentes grandes; disponibilidad → componentes redundantes.</p></div>
+ </div>
+
+ <h2>Reflexión final</h2>
+ <blockquote>
+ «Un requerimiento bien escrito debe ser específico, claro, completo, consistente, verificable, trazable y necesario. Si no se
+ puede probar que se cumple, no es un buen requerimiento.»<sup class="cita-ref"><a href="#ref6" title="Robertson y Robertson (2012), cap. 5, sección: Cualidades de un buen requerimiento, p. 112">6</a></sup>
+ <cite>— Robertson y Robertson (2012), cap. 5, p. 112</cite>
+ </blockquote>
+ <p>
+ Entender estas bases permite hablar el mismo idioma con clientes, analistas y programadores. Los requerimientos no son un
+ documento que se escribe una vez y se archiva: evolucionan con el proyecto, y por eso conviene redactarlos de forma modular,
+ verificable y fácil de actualizar para que el código y la especificación no se desincronicen.<sup class="cita-ref"><a href="#ref2" title="Sommerville (1992), pp. 59-61">2</a></sup>
+ Esta habilidad será útil en cualquier proyecto de la carrera, desde una tarea integradora hasta un sistema real con cliente.
+ </p>
+
+ <h2>Próximos pasos</h2>
+ <ul>
+ <li>Practica con el <strong>«Software»</strong> del índice: clasifica requerimientos y prueba el modo libre.</li>
+ <li>Resuelve los <strong>ejemplos</strong> paso a paso y compáralos con tu propio razonamiento.</li>
+ <li>Refuerza tus conocimientos con el <strong>cuestionario</strong> del tutorial.</li>
+ <li>Consulta la <strong>bibliografía</strong> y los recursos sugeridos para profundizar en los temas de tu interés.</li>
+ </ul>
+ <p class="fuente">
+ Equipo 2 · Grupo 03 · Ingeniería de Software · Facultad de Ingeniería, UNAM · Semestre 2027-1.
+ </p>
+
+ <section class="referencias-pie">
+ <h3>Referencias</h3>
+ <ol>
+ <li id="ref1" value="1">Sommerville, I. (2019). <em>Ingeniería de software</em> (10.ª ed.). Pearson.</li>
+ <li id="ref2" value="2">Sommerville, I. (1992). <em>Software engineering</em> (4.ª ed.). Addison-Wesley.</li>
+ <li id="ref6" value="6">Robertson, S. y Robertson, J. (2012). <em>Mastering the requirements process: Getting requirements right</em> (3.ª ed.). Addison-Wesley Professional.</li>
+ </ol>
+ </section>
+
+</div>
+<script>
+$(document).ready(function(){
+ $('.accordion-btn').on('click',function(){
+ $(this).toggleClass('active').next('.accordion-content').slideToggle(350);
+ });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Video</title>
+ <link rel="stylesheet" href="page.css">
+ <script src="media/js/jq.js"></script>
+ <script src="media/js/solo.js"></script>
+ <style>
+ .video-box { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 10px; margin: 24px 0; background: #000; border: 1px solid rgba(246,170,28,.35); }
+ .video-box video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; border-radius: 10px; background: transparent; }
+ .video-vacio { position: absolute; inset: 0; z-index: 2; background: #000; pointer-events: none; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: #9aa0b5; }
+ .video-vacio span { font-size: 3rem; }
+ .video-vacio p { margin: 6px 0 0; text-align: center; }
+ </style>
+</head>
+<body>
+<div class="wrap">
+
+ <header class="page-header" style="--hero:url('media/tema/tema5.jpg')">
+ <span class="page-num">Material complementario</span>
+ <h1 class="page-title">Video</h1>
+ <p class="page-subtitle">Material audiovisual de apoyo</p>
+ </header>
+
+ <p>
+ Veamos un poco más sobre este tema <strong style="color:#D90;">los requerimientos básicos del sistema</strong>.
+ </p>
+
+ <!-- Para integrar el video: colócalo en media/video/Video_eq02.mp4 (o cambia el src).
+      Si prefieren YouTube, reemplacen el <video> por:
+      <iframe src="https://www.youtube.com/embed/ID_DEL_VIDEO" title="Video explicativo" allowfullscreen
+              style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"></iframe> -->
+ <div class="video-box">
+ <div class="video-vacio" id="vacio"><span>🎬</span><p>El video se agregará en este espacio.</p></div>
+ <video controls preload="metadata" src="media/video/Video_eq02.mp4" aria-label="Video explicativo del tutorial"
+ onloadeddata="document.getElementById('vacio').style.display='none'" style="z-index:1"></video>
+ </div>
+
+</div>
+<script>
+$(document).ready(function(){
+ $('.accordion-btn').on('click',function(){
+ $(this).toggleClass('active').next('.accordion-content').slideToggle(350);
+ });
+});
+</script>
+</body>
+</html>

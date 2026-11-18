@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Introducción</title>
+ <link rel="stylesheet" href="page.css">
+ <script src="media/js/jq.js"></script>
+ <script src="media/js/solo.js"></script>
+</head>
+<body>
+<div class="wrap">
+
+ <header class="page-header" style="--hero:url('media/tema/tema4.jpg')">
+ <span class="page-num">Tema 1</span>
+ <h1 class="page-title">Introducción</h1>
+ <p class="page-subtitle">¿Por qué lo primero que se define en un software es lo que debe hacer?</p>
+ </header>
+
+ <p>
+ La <strong style="color:#D90;">ingeniería de requerimientos</strong> es una de las fases más importantes y críticas en el proceso
+ de desarrollo de software. Su objetivo principal es definir las funciones del sistema, así como las restricciones bajo las
+ cuales va a operar (lo que más adelante desarrollaremos como requerimientos funcionales y requerimientos no funcionales).
+ </p>
+ <p>
+ Durante el desarrollo de software no es posible formular una especificación definitiva de los requerimientos, como
+ consecuencia del diferente nivel de prioridad que los usuarios le dan a las distintas funciones del sistema. Al proceso
+ sistemático de descubrir, recopilar, analizar, documentar y verificar estas necesidades se le denomina
+ <strong>captura y análisis de requerimientos</strong>.
+ </p>
+
+ <h2>¿Qué es un requerimiento?</h2>
+ <div class="definicion">
+ <span class="def-tit">Definición según el autor consultado</span>
+ <p>«Un requerimiento es una declaración de lo que el sistema debe hacer o una propiedad que debe poseer. Puede ser
+ funcional —describir una función del sistema— o no funcional —definir una restricción sobre el sistema o el proceso de desarrollo.»<sup class="cita-ref"><a href="#ref1" title="Sommerville (2019), cap. 4, sección 4.1: Conceptos de requerimientos, p. 95">1</a></sup></p>
+ </div>
+
+ <h2>Niveles de audiencia</h2>
+ <p>
+ Según los fundamentos teóricos de Ian Sommerville, los requerimientos de un sistema no son iguales: se dividen en
+ <strong>tres categorías jerárquicas</strong>, según el nivel de audiencia al que se dirigen.<sup class="cita-ref"><a href="#ref1" title="Sommerville (2019), cap. 4, sección 4.1, p. 95">1</a></sup><sup class="cita-ref"><a href="#ref2" title="Sommerville (1992), cap. 4">2</a></sup>
+ </p>
+ <div class="tabla-scroll">
+ <table>
+ <thead><tr><th>Nivel</th><th>Dirigido a</th><th>¿Qué es?</th></tr></thead>
+ <tbody>
+ <tr><td><strong>Requerimientos (nivel usuario)</strong></td><td>Clientes y gerencia</td>
+ <td>Declaraciones redactadas en un lenguaje correctamente estructurado, enfocadas principalmente en los servicios que el sistema ofrecerá al cliente.</td></tr>
+ <tr><td><strong>Especificación de requerimientos (nivel contractual)</strong></td><td>Personal técnico de ambas partes</td>
+ <td>Documento estructurado y preciso donde se estipula con exactitud lo que se implementará.</td></tr>
+ <tr><td><strong>Especificación de software (nivel de diseño)</strong></td><td>Arquitectos y programadores</td>
+ <td>Describe de manera abstracta los requerimientos; es la guía para el momento de la implementación interna.</td></tr>
+ </tbody>
+ </table>
+ </div>
+
+ <h2>¿Por qué es importante?</h2>
+ <p>
+ La ambigüedad o las fallas en esta etapa pueden dar como resultado un producto de baja calidad que no resuelve el
+ conflicto inicial que el cliente planteó. Esto conduce inevitablemente a tres consecuencias:
+ </p>
+ <div class="card-grid">
+ <div class="card"><span class="card-icon">📉</span><h4>Baja calidad</h4><p>Un producto que no resuelve el problema original del cliente.</p></div>
+ <div class="card"><span class="card-icon">💸</span><h4>Mayor costo</h4><p>Aumento del costo inicial y problemas de mantenimiento futuro.</p></div>
+ <div class="card"><span class="card-icon">⏳</span><h4>Retrasos</h4><p>Atrasos en las fechas estipuladas del proyecto.</p></div>
+ </div>
+
+ <section class="referencias-pie">
+ <h3>Referencias</h3>
+ <ol>
+ <li id="ref1" value="1">Sommerville, I. (2019). <em>Ingeniería de software</em> (10.ª ed.). Pearson.</li>
+ <li id="ref2" value="2">Sommerville, I. (1992). <em>Software engineering</em> (4.ª ed.). Addison-Wesley.</li>
+ </ol>
+ </section>
+
+</div>
+<script>
+$(document).ready(function(){
+ $('.accordion-btn').on('click',function(){
+ $(this).toggleClass('active').next('.accordion-content').slideToggle(350);
+ });
+});
+</script>
+</body>
+</html>
